@@ -5,49 +5,51 @@ using UnityEngine.UI;
 
 public class CardGridLayout : LayoutGroup
 {
-    public int rows;
-    public int columns;
-    public int preferredTopPadding;
-    public Vector2 spacing;
-    public Vector2 cardSize;
+    public int rows; 
+    public int columns; 
+    public int topPadding; 
+    public int sidePadding; 
+    public Vector2 spacing; 
+    public Vector2 cardSize; 
 
     public override void CalculateLayoutInputVertical()
     {
         if (rows == 0 || columns == 0)
         {
-            rows = 4;
-            columns = 5;
+            rows = 4; 
+            columns = 5; 
         }
 
-        float parentWidth = rectTransform.rect.width;
-        float parentHeight = rectTransform.rect.height;
+        float parentWidth = rectTransform.rect.width; 
+        float parentHeight = rectTransform.rect.height; 
 
-        float cardHeight = (parentHeight - 2 * preferredTopPadding - spacing.y * (rows - 1)) / rows;
+        float cardHeight = (parentHeight - 2 * topPadding - spacing.y * (rows - 1)) / rows;
         float cardWidth = cardHeight;
 
         if (cardWidth * columns + spacing.x * (columns - 1) > parentWidth)
         {
-            cardWidth = (parentWidth - 2 * preferredTopPadding - (columns - 1) * spacing.x) / columns;
+            cardWidth = (parentWidth - 2 * sidePadding - (columns - 1) * spacing.x) / columns;
             cardHeight = cardWidth;
         }
 
         cardSize = new Vector2(cardWidth, cardHeight);
 
         padding.left = Mathf.FloorToInt((parentWidth - columns * cardWidth - spacing.x * (columns - 1)) / 2);
+        padding.right = padding.left;
         padding.top = Mathf.FloorToInt((parentHeight - rows * cardHeight - spacing.y * (rows - 1)) / 2);
         padding.bottom = padding.top;
 
-        for (int a = 0; a < rectChildren.Count; a++)
+        for (int i = 0; i < rectChildren.Count; i++)
         {
-            int rowCount = a / columns;
-            int columnCount = a % columns;
+            int rowIndex = i / columns; 
+            int columnIndex = i % columns; 
 
-            var item = rectChildren[a];
-            var xPos = padding.left + cardSize.x * columnCount + spacing.x * (columnCount);
-            var yPos = padding.top + cardSize.y * rowCount + spacing.y * (rowCount);
+            var item = rectChildren[i];
+            var xPos = padding.left + cardSize.x * columnIndex + spacing.x * columnIndex;
+            var yPos = padding.top + cardSize.y * rowIndex + spacing.y * rowIndex;
 
-            SetChildAlongAxis(item, 0, xPos, cardSize.x);
-            SetChildAlongAxis(item, 1, yPos, cardSize.y);
+            SetChildAlongAxis(item, 0, xPos, cardSize.x); 
+            SetChildAlongAxis(item, 1, yPos, cardSize.y); 
         }
     }
 

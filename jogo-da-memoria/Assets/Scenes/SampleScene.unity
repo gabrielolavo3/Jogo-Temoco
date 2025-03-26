@@ -1809,8 +1809,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1833,7 +1833,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -2223,16 +2223,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 50
-    m_Top: 6
-    m_Bottom: 6
+    m_Left: 125
+    m_Right: 125
+    m_Top: 100
+    m_Bottom: 100
   m_ChildAlignment: 4
   rows: 3
   columns: 4
-  preferredTopPadding: 0
+  topPadding: 100
+  sidePadding: 20
   spacing: {x: 50, y: 50}
-  cardSize: {x: 322.5, y: 322.5}
+  cardSize: {x: 260, y: 260}
 --- !u!1 &1998142564
 GameObject:
   m_ObjectHideFlags: 0
