@@ -2223,8 +2223,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 125
-    m_Right: 125
+    m_Left: 227
+    m_Right: 227
     m_Top: 100
     m_Bottom: 100
   m_ChildAlignment: 4
@@ -2233,7 +2233,7 @@ MonoBehaviour:
   topPadding: 100
   sidePadding: 20
   spacing: {x: 50, y: 50}
-  cardSize: {x: 260, y: 260}
+  cardSize: {x: 230.35864, y: 230.35864}
 --- !u!1 &1998142564
 GameObject:
   m_ObjectHideFlags: 0
