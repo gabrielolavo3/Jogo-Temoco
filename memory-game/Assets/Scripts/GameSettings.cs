@@ -111,7 +111,7 @@ public class GameSettings : MonoBehaviour
     {
         if (_puzzleCatDirectory.ContainsKey(_gameSettings.PuzzleCategory))
         {
-            return "Graphics/PuzzleCat/" + _puzzleCatDirectory[_gameSettings.PuzzleCategory] + "/";
+            return "Graphics/PuzzleCat/" + _puzzleCatDirectory[_gameSettings.PuzzleCategory] + "/";            
         }
         else
         {

@@ -1,22 +1,104 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Picture : MonoBehaviour
 {
     private Material firstMaterial;
     private Material secondtMaterial;
+    private Quaternion currentRotation;
+    [HideInInspector] public bool revealed = false;
+    private PictureManager pictureManager;
+    private bool clicked = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        revealed = false;
+        clicked = false;
+        pictureManager = GameObject.Find("[PictureManager]").GetComponent<PictureManager>();
+        currentRotation = gameObject.transform.rotation;
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void OnMouseDown()
+    {
+        if (clicked == false)
+        {
+            pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.PuzzleRotation;
+            StartCoroutine(LoopRotation(45, false));
+            clicked = true;
+        }
+    }
+
+    public void FlipBack()
+    {
+        if (gameObject.activeSelf)
+        {
+            pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.PuzzleRotation;
+            revealed = false;
+            StartCoroutine(LoopRotation(45, true));
+        }
+    }
+
+    IEnumerator LoopRotation(float angle, bool FirstMat)
+    {
+        var rot = 0f;
+        const float dir = 1f;
+        const float rotSpeed = 180.0f;
+        const float rotSpeed_1 = 90.0f;
+        var startAngle = angle;
+        var assigned = false;
+
+        if (FirstMat)
+        {
+            while(rot < angle)
+            {
+                var step = Time.deltaTime * rotSpeed_1;
+                gameObject.GetComponent<Transform>().Rotate(new Vector3(0, 2, 0) * step * dir);
+
+                if (rot >= (startAngle - 2) && assigned == false)
+                {
+                    ApplyFirstMaterial();
+                    assigned = true;
+                }
+
+                rot += (1 * step * dir);
+                yield return null;
+            }
+        }
+        else
+        {
+            while (angle > 0)
+            {
+                float step = Time.deltaTime * rotSpeed;
+                gameObject.GetComponent<Transform>().Rotate(new Vector3(0, 2, 0) * step * dir);
+                angle -= (1 * step * dir);
+                yield return null;
+            }
+        }
+
+        gameObject.GetComponent<Transform>().rotation = currentRotation;
+
+        if (!FirstMat)
+        {
+            revealed = true;
+            ApplySecondMaterial();
+            pictureManager.CheckPicture();
+        }
+        else
+        {
+            pictureManager.PuzzleRevealedNumber = PictureManager.RevealedState.NoRevealed;
+            pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.CanRotate;
+        }
+
+        clicked = false;
     }
 
     public void SetFirstMaterial(Material mat, string texturePath)

@@ -7,23 +7,128 @@ public class PictureManager : MonoBehaviour
     public Picture picturePrefab;
     public Transform picSpawPosition;
     public Vector2 startPosition = new Vector2(-2.15f, 3.62f);
-    
-    [HideInInspector]
-    public List<Picture> pictureList;
+
+    public enum GameState
+    {
+        NoAction,
+        MovingOnPositions,
+        DeletingPuzzles,
+        FlipBack,
+        Checking,
+        GameEnd
+    };
+
+    public enum PuzzleState
+    {
+        PuzzleRotation,
+        CanRotate
+    };
+
+    public enum RevealedState
+    {
+        NoRevealed,
+        OneRevealed,
+        TwoRevealed
+    };
+
+    [HideInInspector] public GameState CurrentGameState;
+    [HideInInspector] public PuzzleState CurrentPuzzleState;
+    [HideInInspector] public RevealedState PuzzleRevealedNumber;
+
+    [HideInInspector] public List<Picture> pictureList;
 
     private Vector2 _offset = new Vector2(1.5f, 1.52f);
+    private Vector2 _offsetFor15Pairs = new Vector2(1.08f, 1.22f);
+    private Vector2 _offsetFor20Pairs = new Vector2(1.08f, 1.0f);
+    private Vector3 _newScaleDown = new Vector3(0.9f, 0.9f, 0.001f);
 
     private List<Material> materialList = new List<Material>();
     private List<string> texturePathList = new List<string>();
     private Material firstMaterial;
     private string firstTexturePath;
 
+    private int firstRevealedPic;
+    private int secondRevealedPic;
+    private int revealedPicNumber = 0;
 
     void Start()
     {
+        CurrentGameState = GameState.NoAction;
+        CurrentPuzzleState = PuzzleState.CanRotate;
+        PuzzleRevealedNumber = RevealedState.NoRevealed;
+        revealedPicNumber = 0;
+        firstRevealedPic = -1;
+        secondRevealedPic = -1;
+
         LoadMaterials();
-        SpawPictureMesh(4, 5, startPosition, _offset, false);
-        MovePicture(4, 5, startPosition, _offset);
+
+        if (GameSettings.Instance.GetPairsNumber() == GameSettings.EPairsNumber.E10Pairs)
+        {
+            CurrentGameState = GameState.MovingOnPositions;
+            SpawPictureMesh(4, 5, startPosition, _offset, false);
+            MovePicture(4, 5, startPosition, _offset);
+        }  
+        else if (GameSettings.Instance.GetPairsNumber() == GameSettings.EPairsNumber.E15Pairs)
+        {
+            CurrentGameState = GameState.MovingOnPositions;
+            SpawPictureMesh(5, 6, startPosition, _offset, false);
+            MovePicture(5, 6, startPosition, _offsetFor15Pairs);
+        }
+        else if (GameSettings.Instance.GetPairsNumber() == GameSettings.EPairsNumber.E20Pairs)
+        {
+            CurrentGameState = GameState.MovingOnPositions;
+            SpawPictureMesh(5, 8, startPosition, _offset, true);
+            MovePicture(5, 8, startPosition, _offsetFor20Pairs);
+        }
+    }
+
+    public void CheckPicture()
+    {
+        CurrentGameState = GameState.Checking;
+        revealedPicNumber = 0;
+
+        for (int id = 0; id < pictureList.Count; id++)
+        {
+            if (pictureList[id].revealed && revealedPicNumber < 2)
+            {
+                if (revealedPicNumber == 0)
+                {
+                    firstRevealedPic = id;
+                    revealedPicNumber++;
+                }
+                else if (revealedPicNumber == 1)
+                {
+                    secondRevealedPic = id;
+                    revealedPicNumber++;
+                }
+            }
+        }
+
+        if (revealedPicNumber == 2)
+        {
+            CurrentGameState = GameState.FlipBack;
+        }
+
+        CurrentPuzzleState = PictureManager.PuzzleState.CanRotate;
+        
+        if (CurrentGameState == GameState.Checking)
+        {
+            CurrentGameState = GameState.NoAction;
+        }
+    }
+
+    private void FlipBack()
+    {
+        System.Threading.Thread.Sleep(700);
+
+        pictureList[firstRevealedPic].FlipBack();
+        pictureList[secondRevealedPic].FlipBack();
+
+        pictureList[firstRevealedPic].revealed = false;
+        pictureList[secondRevealedPic].revealed = false;
+
+        PuzzleRevealedNumber = RevealedState.NoRevealed;
+        CurrentGameState = GameState.NoAction;
     }
 
     private void LoadMaterials()
@@ -51,7 +156,13 @@ public class PictureManager : MonoBehaviour
 
     void Update()
     {
-        
+        if (CurrentGameState == GameState.FlipBack)
+        {
+            if (CurrentPuzzleState == PuzzleState.CanRotate)
+            {
+                FlipBack();
+            }
+        }
     }
 
     private void SpawPictureMesh(int rows, int columns, Vector2 pos, Vector2 offset, bool scaleDown)
@@ -61,6 +172,12 @@ public class PictureManager : MonoBehaviour
             for(int row = 0; row < rows; row++)
             {
                 var tempPicture = (Picture)Instantiate(picturePrefab, picSpawPosition.position, picturePrefab.transform.rotation);
+
+                if (scaleDown)
+                {
+                    tempPicture.transform.localScale = _newScaleDown;
+                }
+
                 tempPicture.name = tempPicture.name + 'c' + col + 'r' + row;
                 pictureList.Add(tempPicture);
             }
@@ -120,7 +237,7 @@ public class PictureManager : MonoBehaviour
         var index = 0;
         for (var col = 0; col < columns; col++)
         {
-            for (int row = 0; row < rows;row++)
+            for (int row = 0; row < rows; row++)
             {
                 var targetPosition = new Vector3((pos.x + (offset.x * row)), (pos.y - (offset.y * col)), 0.0f);
                 StartCoroutine(MoveToPosition(targetPosition, pictureList[index]));
