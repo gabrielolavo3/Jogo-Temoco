@@ -7,6 +7,7 @@ public class GameSettings : MonoBehaviour
     private readonly Dictionary<EPuzzleCategories, string> _puzzleCatDirectory = new Dictionary<EPuzzleCategories, string>();
     private int _settings;
     private const int settingsNumber = 2;
+    private bool muteFxPermanently = false;
 
     public enum EPairsNumber
     {
@@ -118,5 +119,15 @@ public class GameSettings : MonoBehaviour
             Debug.LogError("ERROR: CANNOT GET DIRECTORY");
             return "";
         }
+    }
+
+    public void MuteSoundEffectPermanently(bool muted)
+    {
+        muteFxPermanently = muted;
+    }
+
+    public bool IsSoundEffectMutedPernamently()
+    {
+        return muteFxPermanently;
     }
 }

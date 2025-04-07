@@ -5,12 +5,26 @@ using UnityEngine.Rendering;
 
 public class Picture : MonoBehaviour
 {
+    public AudioClip pressSound;
     private Material firstMaterial;
     private Material secondtMaterial;
     private Quaternion currentRotation;
     [HideInInspector] public bool revealed = false;
     private PictureManager pictureManager;
     private bool clicked = false;
+    private int _index;
+
+    private AudioSource audio;
+
+    public void SetIndex(int id)
+    {
+        _index = id;
+    }
+
+    public int GetIndex()
+    {
+        return _index;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +33,9 @@ public class Picture : MonoBehaviour
         clicked = false;
         pictureManager = GameObject.Find("[PictureManager]").GetComponent<PictureManager>();
         currentRotation = gameObject.transform.rotation;
+
+        audio = GetComponent<AudioSource>();
+        audio.clip = pressSound;
     }
 
     // Update is called once per frame
@@ -32,6 +49,12 @@ public class Picture : MonoBehaviour
         if (clicked == false)
         {
             pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.PuzzleRotation;
+
+            if (GameSettings.Instance.IsSoundEffectMutedPernamently() == false)
+            {
+                audio.Play();
+            }
+
             StartCoroutine(LoopRotation(45, false));
             clicked = true;
         }
@@ -43,6 +66,12 @@ public class Picture : MonoBehaviour
         {
             pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.PuzzleRotation;
             revealed = false;
+
+            if (GameSettings.Instance.IsSoundEffectMutedPernamently() == false)
+            {
+                audio.Play();
+            }
+
             StartCoroutine(LoopRotation(45, true));
         }
     }
@@ -121,5 +150,10 @@ public class Picture : MonoBehaviour
     public void ApplySecondMaterial()
     {
         gameObject.GetComponent<Renderer>().material = secondtMaterial;
+    }
+
+    public void Deactivate()
+    {
+        gameObject.SetActive(false);
     }
 }

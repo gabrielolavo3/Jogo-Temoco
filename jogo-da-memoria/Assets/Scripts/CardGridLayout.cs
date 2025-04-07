@@ -34,9 +34,9 @@ public class CardGridLayout : LayoutGroup
 
         cardSize = new Vector2(cardWidth, cardHeight);
 
-        padding.left = Mathf.FloorToInt((parentWidth - columns * cardWidth - spacing.x * (columns - 1)) / 2);
+        padding.left = Mathf.FloorToInt((parentWidth - (columns * cardWidth + spacing.x * (columns - 1))) / 2);
         padding.right = padding.left;
-        padding.top = Mathf.FloorToInt((parentHeight - rows * cardHeight - spacing.y * (rows - 1)) / 2);
+        padding.top = Mathf.FloorToInt((parentHeight - (rows * cardHeight + spacing.y * (rows - 1))) / 2);
         padding.bottom = padding.top;
 
         for (int i = 0; i < rectChildren.Count; i++)
@@ -55,11 +55,11 @@ public class CardGridLayout : LayoutGroup
 
     public override void SetLayoutHorizontal()
     {
-        return;
+        CalculateLayoutInputVertical();
     }
 
     public override void SetLayoutVertical()
     {
-        return;
+        CalculateLayoutInputVertical();
     }
 }
