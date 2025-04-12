@@ -834,18 +834,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34ee583423182fb4c8638938a528c371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 214
-    m_Right: 214
-    m_Top: 99
-    m_Bottom: 99
-  m_ChildAlignment: 4
-  rows: 3
-  columns: 4
-  topPadding: 100
-  sidePadding: 20
-  spacing: {x: 0, y: 0}
-  cardSize: {x: 259.56857, y: 259.56857}
 --- !u!114 &794520956
 MonoBehaviour:
   m_ObjectHideFlags: 0

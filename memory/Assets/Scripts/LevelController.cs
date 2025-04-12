@@ -45,7 +45,7 @@ public class LevelController : MonoBehaviour
         _level = PlayerPrefs.GetInt("Level", 0);
         StartLevel();
     }
-
+    
     public void StartLevel()
     {
         _gamerOverButton.SetActive(false);
@@ -55,14 +55,13 @@ public class LevelController : MonoBehaviour
         if (_levels[_level].Difficulty > _cardPrefab.maxCardTypes)
         {
             _levels[_level].Difficulty = Math.Min(_levels[_level].Difficulty, _cardPrefab.maxCardTypes);
-            Debug.Assert(false);            
+            Debug.Assert(false);
         }
 
         _cards.ForEach(c => Destroy(c.gameObject));
         _cards.Clear();
 
         List<int> allTypes = new List<int>();
-
         for (int a = 0; a < _cardPrefab.maxCardTypes; a++)
         {
             allTypes.Add(a);
@@ -70,21 +69,29 @@ public class LevelController : MonoBehaviour
 
         List<int> gameTypes = new List<int>();
 
-        for (int i = 0; i < _levels[_level].Difficulty; i++)
+        for (int i = 0; i < (_levels[_level].Rows * _levels[_level].Columns) / 2; i++) // Número de pares necessários
         {
-            int chosenType = allTypes[UnityEngine.Random.Range(0 , allTypes.Count)];
+            if (allTypes.Count == 0)
+            {
+                Debug.LogError("Não há tipos suficientes de cartas para o número de pares!");
+                break;
+            }
+
+            int chosenType = allTypes[UnityEngine.Random.Range(0, allTypes.Count)];
             allTypes.Remove(chosenType);
-            gameTypes.Add(chosenType);            
+            gameTypes.Add(chosenType);
         }
 
         List<int> chosenTypes = new List<int>();
 
-        for (int i = 0; i < (_levels[_level].Rows * _levels[_level].Columns) / 2; i++)
+        foreach (var type in gameTypes)
         {
-            int chosenType = gameTypes[UnityEngine.Random.Range(0, gameTypes.Count)];
-            chosenTypes.Add(chosenType);
-            chosenTypes.Add(chosenType);
+            chosenTypes.Add(type);
+            chosenTypes.Add(type); // Cada tipo duas vezes (um par)
         }
+
+        // Embaralhar as cartas (opcional mas recomendado para aleatoriedade)
+        Shuffle(chosenTypes);
 
         Vector3 offset = new Vector3((_levels[_level].Columns - 1) * (_cardPrefab.cardSize + _levels[_level].Spacing), (_levels[_level].Rows - 1) * (_cardPrefab.cardSize + _levels[_level].Spacing), 0f) * 0.5f;
 
@@ -96,8 +103,8 @@ public class LevelController : MonoBehaviour
 
                 var card = Instantiate(_cardPrefab, position - offset, Quaternion.identity);
 
-                card.cardtype = chosenTypes[UnityEngine.Random.Range(0, chosenTypes.Count)];
-                chosenTypes.Remove(card.cardtype);
+                card.cardtype = chosenTypes[0];
+                chosenTypes.RemoveAt(0);
                 card.onClicked.AddListener(OnCardClicked);
                 _cards.Add(card);
             }
@@ -110,6 +117,17 @@ public class LevelController : MonoBehaviour
         _levelText.text = $"Level: {_level}";
         _movementText.text = $"Moves: {_levels[_level].Movements}";
     }
+
+    // Função para embaralhar uma lista
+    private void Shuffle(List<int> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            int randomIndex = UnityEngine.Random.Range(i, list.Count);
+            (list[i], list[randomIndex]) = (list[randomIndex], list[i]);
+        }
+    }
+
 
     private void OnCardClicked(CardController card)
     {
@@ -225,5 +243,4 @@ public class LevelController : MonoBehaviour
             card.IsInteractable = interactable;
         }
     }
-
 }
