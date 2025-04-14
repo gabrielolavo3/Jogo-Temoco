@@ -34,6 +34,7 @@ public class LevelController : MonoBehaviour
     //[SerializeField] private int _difficulty = 4;
     //[SerializeField] private int _movements = 10;
 
+    public Transform CardsArea;
     private CardController _activeCard;
     private int _movementsUsed = 0;
     private bool _blockInput = true;
@@ -101,7 +102,10 @@ public class LevelController : MonoBehaviour
             {
                 Vector3 position = new Vector3(col * (_cardPrefab.cardSize + _levels[_level].Spacing), y * (_cardPrefab.cardSize + _levels[_level].Spacing), 0f);
 
-                var card = Instantiate(_cardPrefab, position - offset, Quaternion.identity);
+                //var card = Instantiate(_cardPrefab, position - offset, Quaternion.identity);
+
+                var card = Instantiate(_cardPrefab, CardsArea.transform); // novo pai
+                card.transform.localPosition = position - offset; // manter posição
 
                 card.cardtype = chosenTypes[0];
                 chosenTypes.RemoveAt(0);
