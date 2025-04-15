@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class LevelController : MonoBehaviour
 {
-    [Serializable] 
+    [Serializable]
     public class LevelData
     {
         public int Columns;
@@ -19,11 +19,12 @@ public class LevelController : MonoBehaviour
     private List<CardController> _cards = new List<CardController>();
 
     [SerializeField] private CardController _cardPrefab;
+    [SerializeField] private RectTransform cardsGrid;
 
-    [Header("UI References")]
-    [SerializeField] private TMP_Text _levelText;
-    [SerializeField] private TMP_Text _movementText;
-    [SerializeField] private GameObject _gamerOverButton;
+    //[Header("UI References")]
+    //[SerializeField] private TMP_Text _levelText;
+    //[SerializeField] private TMP_Text _movementText;
+    //[SerializeField] private GameObject _gamerOverButton;
 
     [Header("LevelData")]
     [SerializeField] private List<LevelData> _levels = new List<LevelData>();
@@ -34,8 +35,7 @@ public class LevelController : MonoBehaviour
     //[SerializeField] private int _difficulty = 4;
     //[SerializeField] private int _movements = 10;
 
-    public Transform CardsArea;
-    private CardController _activeCard;
+    private CardController _activeCard;    
     private int _movementsUsed = 0;
     private bool _blockInput = true;
     private int _level = 0;
@@ -46,10 +46,10 @@ public class LevelController : MonoBehaviour
         _level = PlayerPrefs.GetInt("Level", 0);
         StartLevel();
     }
-    
+
     public void StartLevel()
     {
-        _gamerOverButton.SetActive(false);
+        //_gamerOverButton.SetActive(false);
 
         Debug.Assert((_levels[_level].Rows * _levels[_level].Columns) % 2 == 0);
 
@@ -102,10 +102,13 @@ public class LevelController : MonoBehaviour
             {
                 Vector3 position = new Vector3(col * (_cardPrefab.cardSize + _levels[_level].Spacing), y * (_cardPrefab.cardSize + _levels[_level].Spacing), 0f);
 
-                //var card = Instantiate(_cardPrefab, position - offset, Quaternion.identity);
+                var card = Instantiate(_cardPrefab, position - offset, Quaternion.identity);
 
-                var card = Instantiate(_cardPrefab, CardsArea.transform); // novo pai
-                card.transform.localPosition = position - offset; // manter posição
+                //         Vector3 position = new Vector3(
+                //    col * (_cardPrefab.cardSize + _levels[_level].Spacing),
+                //    -y * (_cardPrefab.cardSize + _levels[_level].Spacing), // Inverter Y se necessário
+                //    0f
+                //);
 
                 card.cardtype = chosenTypes[0];
                 chosenTypes.RemoveAt(0);
@@ -114,12 +117,13 @@ public class LevelController : MonoBehaviour
             }
         }
 
+
         _blockInput = false;
         _gameEnded = false;
         SetCardsInteractable(true);
         _movementsUsed = 0;
-        _levelText.text = $"Level: {_level}";
-        _movementText.text = $"Moves: {_levels[_level].Movements}";
+        //_levelText.text = $"Level: {_level}";
+        //_movementText.text = $"Moves: {_levels[_level].Movements}";
     }
 
     // Função para embaralhar uma lista
@@ -151,11 +155,11 @@ public class LevelController : MonoBehaviour
         }
 
         _movementsUsed++;
-        _movementText.text = $"Moves: {_levels[_level].Movements - _movementsUsed}";
+        //_movementText.text = $"Moves: {_levels[_level].Movements - _movementsUsed}";
 
         if (card.cardtype == _activeCard.cardtype)
         {
-            StartCoroutine(Score(card));           
+            StartCoroutine(Score(card));
             return;
         }
 
@@ -179,7 +183,7 @@ public class LevelController : MonoBehaviour
         Destroy(card.gameObject);
         Destroy(_activeCard.gameObject);
         _activeCard = null;
-        _blockInput= false;
+        _blockInput = false;
 
         if (_cards.Count < 1)
         {
@@ -225,11 +229,11 @@ public class LevelController : MonoBehaviour
         }
 
         PlayerPrefs.SetInt("Level", _level);
-        Debug.Log("Victory");      
-        
+        Debug.Log("Victory");
+
         _gameEnded = true;
         SetCardsInteractable(false);
-        _gamerOverButton.SetActive(true);
+        //_gamerOverButton.SetActive(true);
     }
 
     private void Lose()
@@ -237,7 +241,7 @@ public class LevelController : MonoBehaviour
         Debug.Log("Defeat");
         _gameEnded = true;
         SetCardsInteractable(false);
-        _gamerOverButton.SetActive(true);
+        //_gamerOverButton.SetActive(true);
     }
 
     private void SetCardsInteractable(bool interactable)
