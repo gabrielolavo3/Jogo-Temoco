@@ -78,10 +78,7 @@ public class LevelController : MonoBehaviour
 
         Shuffle(chosenTypes);
 
-        Vector3 offset = new Vector3(
-            (_levels[_level].Columns - 1) * (_cardPrefab.cardSize + _levels[_level].Spacing),
-            (_levels[_level].Rows - 1) * (_cardPrefab.cardSize + _levels[_level].Spacing),
-            0f) * 0.5f;
+        Vector3 offset = new Vector3((_levels[_level].Columns - 1) * (_cardPrefab.cardSize + _levels[_level].Spacing), (_levels[_level].Rows - 1) * (_cardPrefab.cardSize + _levels[_level].Spacing), 0f) * 0.5f;
 
         for (int y = 0; y < _levels[_level].Rows; y++)
         {

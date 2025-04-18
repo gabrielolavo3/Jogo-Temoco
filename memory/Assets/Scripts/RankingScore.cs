@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class RankingScore : MonoBehaviour
 {
-    private int pontuacaoJogatina;
-    private int melhorPontuacao;
-    [SerializeField] private Text pontuacaoText;
-    [SerializeField] private Text pontuacaoFinalText;
+    private int _pontuacaoJogatina;
+    private int _melhorPontuacao;
+    [SerializeField] private Text _pontuacaoText;
+    [SerializeField] private Text _pontuacaoFinalText;
     
     void Start()
     {
@@ -18,13 +18,13 @@ public class RankingScore : MonoBehaviour
     private void Placares()
     {
         // Resgatando os valores de pontos salvos anteriormente
-        pontuacaoJogatina = PlayerPrefs.GetInt("UltimaPontuacaoTotal", 0);
-        melhorPontuacao = PlayerPrefs.GetInt("MelhorPontuacaoGeral", 0);
+        _pontuacaoJogatina = PlayerPrefs.GetInt("UltimaPontuacaoTotal", 0);
+        _melhorPontuacao = PlayerPrefs.GetInt("MelhorPontuacaoGeral", 0);
 
-        if (pontuacaoJogatina > melhorPontuacao)
+        if (_pontuacaoJogatina > _melhorPontuacao)
         {
-            melhorPontuacao = pontuacaoJogatina;
-            PlayerPrefs.SetInt("MelhorPontuacaoGeral", melhorPontuacao); // Atualiza o valor da pontuação
+            _melhorPontuacao = _pontuacaoJogatina;
+            PlayerPrefs.SetInt("MelhorPontuacaoGeral", _melhorPontuacao); // Atualiza o valor da pontuação
             PlayerPrefs.Save(); // Salva a mudança de valor
         }
 
@@ -33,7 +33,7 @@ public class RankingScore : MonoBehaviour
 
     private void AtualizarTextUI()
     {
-        pontuacaoText.text = pontuacaoJogatina.ToString() + "x";
-        pontuacaoFinalText.text = melhorPontuacao.ToString() + "x";
+        _pontuacaoFinalText.text = _melhorPontuacao.ToString() + "x";
+        _pontuacaoFinalText.text = _melhorPontuacao.ToString() + "x";
     }
 }
