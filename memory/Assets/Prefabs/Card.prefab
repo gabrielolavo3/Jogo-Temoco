@@ -221,15 +221,15 @@ MonoBehaviour:
         m_CallState: 2
   prefabs:
   - {fileID: 6365754226878108037, guid: 923d1ac5cec8168439078e4a2ad26ee4, type: 3}
-  - {fileID: 6251446717226894779, guid: d20199bac7e5d0d4880ca435f59f0f5b, type: 3}
+  - {fileID: 2651303347865793946, guid: 3dc68b9c77d01c44797debe6b2e79f97, type: 3}
   - {fileID: 7978127296195443997, guid: 806198ea3dcfadb409a63e8aa2aa7eec, type: 3}
-  - {fileID: 815333535397526511, guid: 109854c32c8c4304b8fd7bc53a87fbff, type: 3}
-  - {fileID: 7527454391235302088, guid: b7558536f77cef849a0d5a1e2ec627bf, type: 3}
+  - {fileID: 7064389036581613890, guid: 74256a3f40ba0da4fb2b24a18de200e6, type: 3}
+  - {fileID: 2462453332303480835, guid: 334946a8f081e7d48b636d97adc621e4, type: 3}
   - {fileID: 8454942706881090931, guid: b0ee056859fa2cc4f99d3a9fcac413df, type: 3}
-  - {fileID: 1486843863676535233, guid: a5d101ff2bdd71d47adfe567ef448272, type: 3}
+  - {fileID: 8248716760763727016, guid: 7edb25ab82f966648b2c48301929bda3, type: 3}
   - {fileID: 3928795545850939188, guid: 51447752c8b90014596e7231bb0ada9d, type: 3}
   - {fileID: 4587684214709590025, guid: 8d3b81300b517f840a743a54f1b6d423, type: 3}
-  - {fileID: 7231378636492344542, guid: 59e057a97821c30428583ccfa868fa58, type: 3}
+  - {fileID: 6477167840637430250, guid: bfae7d3a6d0b17742a4f617d31fae9e5, type: 3}
   cardSize: 2
 --- !u!222 &2122601465220034810
 CanvasRenderer:

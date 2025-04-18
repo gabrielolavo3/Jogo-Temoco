@@ -15,14 +15,14 @@ public class FinalSceneManager : MonoBehaviour
         Debug.Log("Carregando a tela inicial....");        
     }
 
-    public void IniciarJogo()
+    public void IniciarJogo(string nome_cena)
     {        
-        StartCoroutine(TempoParaInciaJogo());
+        StartCoroutine(TempoParaInciaJogo(nome_cena));
     }
 
-    private IEnumerator TempoParaInciaJogo()
+    private IEnumerator TempoParaInciaJogo(string nome_cena)
     {
         yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene(nome_cena);
     }
 }

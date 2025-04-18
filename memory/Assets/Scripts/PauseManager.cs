@@ -92,8 +92,15 @@ public class PauseManager : MonoBehaviour
         SceneManager.LoadScene(nome_cena);
     }
 
-    public void CarregarTelaInicial()
+    public void CarregarTelaInicial(string nome_cena)
     {
-        Debug.Log("Função de ir para a Home será implementada futuramente.");
+        Time.timeScale = 1f;
+        StartCoroutine(VoltarParaInicio(nome_cena));
+    }
+
+    private IEnumerator VoltarParaInicio(string nome_cena)
+    {
+        yield return new WaitForSeconds(0.2f);
+        SceneManager.LoadScene(nome_cena);
     }
 }

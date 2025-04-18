@@ -33,7 +33,7 @@ public class RankingScore : MonoBehaviour
 
     private void AtualizarTextUI()
     {
-        _pontuacaoFinalText.text = _melhorPontuacao.ToString() + "x";
+        _pontuacaoText.text = _pontuacaoJogatina.ToString() + "x";
         _pontuacaoFinalText.text = _melhorPontuacao.ToString() + "x";
     }
 }
