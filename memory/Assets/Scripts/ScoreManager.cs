@@ -5,47 +5,64 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    public Text scoreTotalText;
-    public Text scoreCorrectText;
-    public Text scoreErrorText;
+    private int pontuacaoTotalJogo;
+    private int quantAcertos;
+    private int quantErros;
+    private int pontoAdicional;
 
-    private int scoreTotal = 0;
-    private int scoreCorrect = 0;
-    private int scoreErrors = 0;
+    [SerializeField] private Text placarTotalText;
+    [SerializeField] private Text placarAcertoText;
+    [SerializeField] private Text placarErrosText;
 
-    public void AddCorrect()
+    void Start()
     {
-        scoreCorrect++;
-        scoreTotal += 100;
-        UpdateUI();
+        pontuacaoTotalJogo = 0;
+        quantAcertos = 0;
+        quantErros = 0;
+        pontoAdicional = 100;
     }
 
-    public void AddError()
+    public void AddAcerto()
     {
-        scoreErrors++;
-        scoreTotal -= 50;
-        if (scoreTotal < 0) scoreTotal = 0;
-        UpdateUI();
+        // Incrementa a quantidade de acertos e adiciona os pontos ganhos
+        quantAcertos++;
+        pontuacaoTotalJogo += pontoAdicional;
+        AtualizarTextUI();
     }
 
-    private void UpdateUI()
+    public void AddErro()
     {
-        scoreTotalText.text = scoreTotal.ToString();
-        scoreCorrectText.text = scoreCorrect.ToString();
-        scoreErrorText.text = scoreErrors.ToString();
+        // Incrementa a quantidade de acertos e remove metade do total de pontos ganhos por acerto
+        quantErros++;
+        pontuacaoTotalJogo -= (pontoAdicional / 2);
+
+        if (pontuacaoTotalJogo <= 0)
+        {
+            pontuacaoTotalJogo = 0;
+        }
+
+        AtualizarTextUI();
     }
 
-    public void SaveScore()
+    private void AtualizarTextUI()
     {
-        PlayerPrefs.SetInt("LastScoreTotal", scoreTotal);
+        placarTotalText.text = pontuacaoTotalJogo.ToString() + "x";
+        placarAcertoText.text = quantAcertos.ToString() + "x";
+        placarErrosText.text = quantErros.ToString() + "x";
+    }
+
+    public void SalvarPontuacao()
+    {
+        // Subescreve e salvar a pontuação do jogo atual 
+        PlayerPrefs.SetInt("UltimaPontuacaoTotal", pontuacaoTotalJogo);
         PlayerPrefs.Save();
     }
 
-    public void ResetScore()
+    public void ReconfigurarPlacares()
     {
-        scoreTotal = 0;
-        scoreCorrect = 0;
-        scoreErrors = 0;
-        UpdateUI();
+        pontuacaoTotalJogo = 0;
+        quantAcertos = 0;
+        quantErros = 0;
+        AtualizarTextUI();
     }
 }

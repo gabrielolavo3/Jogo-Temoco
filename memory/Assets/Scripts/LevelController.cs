@@ -31,7 +31,7 @@ public class LevelController : MonoBehaviour
         _level = PlayerPrefs.GetInt("Level", 0);
         StartLevel();
         _scoreManager = FindObjectOfType<ScoreManager>();
-        _scoreManager.ResetScore();
+        _scoreManager.ReconfigurarPlacares();
     }
 
     public void StartLevel()
@@ -150,7 +150,7 @@ public class LevelController : MonoBehaviour
         Destroy(card.gameObject);
         Destroy(_activeCard.gameObject);
         _activeCard = null;
-        _scoreManager.AddCorrect();
+        _scoreManager.AddAcerto();
 
         if (_cards.Count < 1)
         {
@@ -168,7 +168,7 @@ public class LevelController : MonoBehaviour
         _activeCard.Hide();
         card.Hide();
         _activeCard = null;
-        _scoreManager.AddError();
+        _scoreManager.AddErro();
 
         yield return new WaitForSeconds(0.5f);
         _blockInput = false;
@@ -187,7 +187,7 @@ public class LevelController : MonoBehaviour
         Debug.Log("Victory");
 
         _gameEnded = true;
-        _scoreManager.SaveScore();
+        _scoreManager.SalvarPontuacao();
         SetCardsInteractable(false);
 
         StartCoroutine(TransitionFinalScene());     

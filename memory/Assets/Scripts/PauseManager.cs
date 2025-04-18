@@ -5,69 +5,95 @@ using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
-    public GameObject pausePanel; // Painel de pausa
-    public GameObject inGameUI;   // HUD ou área do jogo
+    public GameObject pausePanel;
+    public GameObject inGameUI;
+
+    private List<GameObject> cartoesPrefabsObjects = new List<GameObject>();
 
     void Start()
     {
-        // Garante que o painel de pause esteja desativado ao iniciar
         if (pausePanel != null)
         {
+            // Desativa o panel do menu de pause
             pausePanel.SetActive(false);
-        }            
-
-        if (inGameUI != null)
-        {
-            inGameUI.SetActive(true);
         }
             
-        Time.timeScale = 1f; // Garante que o tempo esteja rodando normalmente
+        if (inGameUI != null)
+        {
+            // Mantém aativa a área de jogo
+            inGameUI.SetActive(true);
+        }            
+
+        Time.timeScale = 1f;
+
+        ColetarTodosCartoes();
     }
 
-    public void ActivePause()
+    private void ColetarTodosCartoes()
     {
-        PauseGame();
+        // Limpa os cartões já existentes e procura novamente por objetos CardController para o array
+        cartoesPrefabsObjects.Clear();
+        CardController[] listaCartoes = FindObjectsOfType<CardController>();
+
+        foreach (CardController card in listaCartoes)
+        {
+            // Percorre todos os cartões encontrados e adiciona ao array
+            cartoesPrefabsObjects.Add(card.gameObject);
+        }
     }
 
-    public void PauseGame()
+    public void AtivarTelaDePause()
+    {
+        PausarJogo();
+    }
+
+    public void PausarJogo()
     {
         if (pausePanel != null)
         {
             pausePanel.SetActive(true);
         }
-            
-        if (inGameUI != null)
-        {
-            inGameUI.SetActive(false);
-        }            
+        
+        // Interrompe o tempo de execução
+        Time.timeScale = 0f; 
 
-        Time.timeScale = 0f;
+        // Desativa todos os cartões armazenados
+        foreach (GameObject card in cartoesPrefabsObjects)
+        {
+            if (card != null)
+            {
+                card.SetActive(false);
+            }                
+        }
     }
 
-    public void ResumeGame()
+    public void ContinuarJogo()
     {
         if (pausePanel != null)
         {
             pausePanel.SetActive(false);
-        }            
-
-        if (inGameUI != null)
-        {
-            inGameUI.SetActive(true);
         }
             
         Time.timeScale = 1f;
+
+        // Reativa todos os cartões
+        foreach (GameObject card in cartoesPrefabsObjects)
+        {
+            if (card != null)
+            {
+                card.SetActive(true);
+            }                
+        }
     }
 
-    public void RestartGame(string scene_name)
+    public void ReiniciarJogo(string nome_cena)
     {
-        Time.timeScale = 1f; // Garante que o tempo volte ao normal
-        SceneManager.LoadScene(scene_name);
-    }    
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(nome_cena);
+    }
 
-    public void GoHome()
+    public void CarregarTelaInicial()
     {
         Debug.Log("Função de ir para a Home será implementada futuramente.");
-        // Aqui você pode adicionar uma cena futura ou menu inicial
     }
 }

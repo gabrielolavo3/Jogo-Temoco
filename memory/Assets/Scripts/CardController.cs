@@ -5,21 +5,24 @@ using UnityEngine.Events;
 
 public class CardController : MonoBehaviour
 {
-    public int cardtype = -1;
-    private Animator _animator;
-    public UnityEvent<CardController> onClicked;
     public int maxCardTypes => prefabs.Count;
-    [SerializeField] public List<GameObject> prefabs;
-    [SerializeField] public float cardSize = 2f;
+    public int cardtype = -1;
+    public UnityEvent<CardController> onClicked;
+    public List<GameObject> prefabs;
+    public float cardSize = 2f;
 
-    public bool IsInteractable { get; set; } = true;
+    private Animator _animator;
+
+    public bool IsInteractable 
+    {
+        get; set; 
+    } = true;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
     }
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         if (cardtype < 0)
@@ -27,12 +30,6 @@ public class CardController : MonoBehaviour
             cardtype = UnityEngine.Random.Range(0, prefabs.Count);
         }
         Instantiate(prefabs[cardtype], transform.position, Quaternion.identity, transform);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     private void OnMouseUpAsButton()
