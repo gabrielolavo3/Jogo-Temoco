@@ -22,7 +22,7 @@ public class FinalSceneManager : MonoBehaviour
 
     private IEnumerator TempoParaInciaJogo(string nome_cena)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         SceneManager.LoadScene(nome_cena);
     }
 }
