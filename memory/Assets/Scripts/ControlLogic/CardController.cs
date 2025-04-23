@@ -45,7 +45,7 @@ public class CardController : MonoBehaviour
         IEnumerator AnimationCoroutine()
         {
             Reveal();
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1.8f);
             Hide();
         }
 
