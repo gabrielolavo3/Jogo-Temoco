@@ -1,14 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour
-{
-    [Serializable]
-    public class LevelData
+{    
+    [Serializable] public class LevelData
     {
+        [Header("Configurações da Dificuldade")]
         public int Columns;
         public int Rows;
         public float Spacing;
@@ -18,17 +19,27 @@ public class LevelController : MonoBehaviour
     private List<CardController> _cards = new List<CardController>();
 
     [SerializeField] private CardController _cardPrefab;
-    [SerializeField] private List<LevelData> _levels = new List<LevelData>();
+    //[SerializeField] private List<LevelData> _levels = new List<LevelData>();
 
     private CardController _activeCard;
     private ScoreManager _scoreManager;
+    private LevelData _currentLevel;
     private bool _blockInput = true;
-    private int _level = 0;
+    //private int _level = 0;
     private bool _gameEnded = false;
 
     void Start()
     {
-        _level = PlayerPrefs.GetInt("Level", 0);
+        //_level = PlayerPrefs.GetInt("Level", 0);
+
+        _currentLevel = new LevelData
+        {
+            Columns = PlayerPrefs.GetInt("LevelColumns", 4),
+            Rows = PlayerPrefs.GetInt("LevelRows", 3),
+            Spacing = PlayerPrefs.GetFloat("LevelSpacing", 0.5f),
+            Difficulty = PlayerPrefs.GetInt("LevelDifficulty", 3)
+        };
+
         StartLevel();
         _scoreManager = FindObjectOfType<ScoreManager>();
         _scoreManager.ReconfigurarPlacares();
@@ -36,11 +47,11 @@ public class LevelController : MonoBehaviour
 
     public void StartLevel()
     {
-        Debug.Assert((_levels[_level].Rows * _levels[_level].Columns) % 2 == 0);
+        Debug.Assert((_currentLevel.Rows * _currentLevel.Columns) % 2 == 0);
 
-        if (_levels[_level].Difficulty > _cardPrefab.maxCardTypes)
+        if (_currentLevel.Difficulty > _cardPrefab.maxCardTypes)
         {
-            _levels[_level].Difficulty = Math.Min(_levels[_level].Difficulty, _cardPrefab.maxCardTypes);
+            _currentLevel.Difficulty = Math.Min(_currentLevel.Difficulty, _cardPrefab.maxCardTypes);
             Debug.Assert(false);
         }
 
@@ -55,7 +66,7 @@ public class LevelController : MonoBehaviour
 
         List<int> gameTypes = new List<int>();
 
-        for (int i = 0; i < (_levels[_level].Rows * _levels[_level].Columns) / 2; i++)
+        for (int i = 0; i < (_currentLevel.Rows * _currentLevel.Columns) / 2; i++)
         {
             if (allTypes.Count == 0)
             {
@@ -78,13 +89,13 @@ public class LevelController : MonoBehaviour
 
         Shuffle(chosenTypes);
 
-        Vector3 offset = new Vector3((_levels[_level].Columns - 1) * (_cardPrefab.cardSize + _levels[_level].Spacing), (_levels[_level].Rows - 1) * (_cardPrefab.cardSize + _levels[_level].Spacing), 0f) * 0.5f;
+        Vector3 offset = new Vector3((_currentLevel.Columns - 1) * (_cardPrefab.cardSize + _currentLevel.Spacing), (_currentLevel.Rows - 1) * (_cardPrefab.cardSize + _currentLevel.Spacing), 0f) * 0.5f;
 
-        for (int y = 0; y < _levels[_level].Rows; y++)
+        for (int y = 0; y < _currentLevel.Rows; y++)
         {
-            for (int col = 0; col < _levels[_level].Columns; col++)
+            for (int col = 0; col < _currentLevel.Columns; col++)
             {
-                Vector3 position = new Vector3(col * (_cardPrefab.cardSize + _levels[_level].Spacing), y * (_cardPrefab.cardSize + _levels[_level].Spacing), 0f);
+                Vector3 position = new Vector3(col * (_cardPrefab.cardSize + _currentLevel.Spacing), y * (_cardPrefab.cardSize + _currentLevel.Spacing), 0f);
                 var card = Instantiate(_cardPrefab, position - offset, Quaternion.identity);
                 card.cardtype = chosenTypes[0];
                 chosenTypes.RemoveAt(0);
@@ -173,21 +184,21 @@ public class LevelController : MonoBehaviour
 
     private void Win()
     {
-        _level++;
+        //_level++;
 
-        if (_level >= _levels.Count)
-        {
-            _level = 0;
-        }
+        //if (_level >= _levels.Count)
+        //{
+        //    _level = 0;
+        //}
 
-        PlayerPrefs.SetInt("Level", _level);
+        //PlayerPrefs.SetInt("Level", _level);
         Debug.Log("Victory");
 
         _gameEnded = true;
         _scoreManager.SalvarPontuacao();
         SetCardsInteractable(false);
 
-        StartCoroutine(TransitionFinalScene());     
+        StartCoroutine(TransitionFinalScene());
     }
 
     private IEnumerator TransitionFinalScene()

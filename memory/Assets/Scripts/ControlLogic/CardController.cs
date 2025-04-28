@@ -11,18 +11,23 @@ public class CardController : MonoBehaviour
     public List<GameObject> prefabs;
     public float cardSize = 2f;
 
-    private Animator _animator;
+    private Animator _animator;    
+    private AudioSource _audioSource;
+    [SerializeField] private AudioClip _revelarCartao;
+    [SerializeField] private AudioClip _esconderCartao;
+    [SerializeField] private float _velocidadePicthAudio;
 
-    public bool IsInteractable 
+    public bool IsInteractable
     {
-        get; set; 
+        get; set;
     } = true;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     }
-    
+
     void Start()
     {
         if (cardtype < 0)
@@ -45,7 +50,7 @@ public class CardController : MonoBehaviour
         IEnumerator AnimationCoroutine()
         {
             Reveal();
-            yield return new WaitForSeconds(1.8f);
+            yield return new WaitForSeconds(2f);
             Hide();
         }
 
@@ -55,10 +60,21 @@ public class CardController : MonoBehaviour
     public void Reveal()
     {
         _animator.SetBool("revealed", true);
+        
+        if (_revelarCartao != null)
+        {
+            _audioSource.PlayOneShot(_revelarCartao);
+        }
     }
 
     public void Hide()
     {
         _animator.SetBool("revealed", false);
+
+        if (_esconderCartao != null)
+        {
+            _audioSource.pitch = _velocidadePicthAudio;
+            _audioSource.PlayOneShot(_esconderCartao);
+        }
     }
 }

@@ -185,6 +185,66 @@ MonoBehaviour:
   m_Spacing: {x: 100, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 3
+--- !u!1 &80934956
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 80934958}
+  - component: {fileID: 80934957}
+  m_Layer: 0
+  m_Name: '[Difficulty]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &80934957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80934956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0e7503b53cea9b48ae06ba16fc20478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioPlayer: {fileID: 0}
+  nivelFacil:
+    Columns: 4
+    Rows: 3
+    Spacing: 0.5
+    Difficulty: 3
+  nivelMedio:
+    Columns: 4
+    Rows: 4
+    Spacing: 0.5
+    Difficulty: 4
+  nivelDificil:
+    Columns: 5
+    Rows: 4
+    Spacing: 0.5
+    Difficulty: 5
+--- !u!4 &80934958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80934956}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &175983347
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,6 +348,22 @@ PrefabInstance:
     - target: {fileID: 2416422136962739389, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
       propertyPath: m_Text
       value: "M\xE9dio"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654474677765668607, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654474677765668607, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 80934957}
+    - target: {fileID: 3654474677765668607, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ModoMedioSelecionado
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654474677765668607, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: GameScene
       objectReference: {fileID: 0}
     - target: {fileID: 5531814891373934344, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
       propertyPath: m_Pivot.x
@@ -394,6 +470,14 @@ PrefabInstance:
     - target: {fileID: 3654474677765668607, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654474677765668607, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 80934957}
+    - target: {fileID: 3654474677765668607, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ModoFacilSelecionado
       objectReference: {fileID: 0}
     - target: {fileID: 3654474677765668607, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -504,6 +588,22 @@ PrefabInstance:
     - target: {fileID: 2416422136962739389, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
       propertyPath: m_Text
       value: "Dif\xEDcil"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654474677765668607, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654474677765668607, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 80934957}
+    - target: {fileID: 3654474677765668607, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ModoDificilSelecionado
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654474677765668607, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: GameScene
       objectReference: {fileID: 0}
     - target: {fileID: 5531814891373934344, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
       propertyPath: m_Pivot.x
@@ -931,4 +1031,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 175983350}
   - {fileID: 2022711395}
+  - {fileID: 80934958}
   - {fileID: 1791451163}
