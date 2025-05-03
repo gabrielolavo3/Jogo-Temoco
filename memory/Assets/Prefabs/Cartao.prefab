@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 2122601465220034810}
   - component: {fileID: 4625922805260736525}
   m_Layer: 0
-  m_Name: Card
+  m_Name: Cartao
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -205,21 +205,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardtype: -1
-  onClicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 149993738675817640}
-        m_TargetAssemblyTypeName: CardController, Assembly-CSharp
-        m_MethodName: TestAnimation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   prefabs:
   - {fileID: 6365754226878108037, guid: 923d1ac5cec8168439078e4a2ad26ee4, type: 3}
   - {fileID: 2651303347865793946, guid: 3dc68b9c77d01c44797debe6b2e79f97, type: 3}
@@ -232,9 +217,10 @@ MonoBehaviour:
   - {fileID: 4587684214709590025, guid: 8d3b81300b517f840a743a54f1b6d423, type: 3}
   - {fileID: 6477167840637430250, guid: bfae7d3a6d0b17742a4f617d31fae9e5, type: 3}
   cardSize: 2
-  _revelarCartao: {fileID: 8300000, guid: 97166d6d8ed9b0e4f9282bfba21ae340, type: 3}
-  _esconderCartao: {fileID: 8300000, guid: ae738fcbaa6daea4eb93ef26d4e1f618, type: 3}
-  _velocidadePicthAudio: 2
+  onClicked:
+    m_PersistentCalls:
+      m_Calls: []
+  clipRevelarCartao: {fileID: 8300000, guid: 97166d6d8ed9b0e4f9282bfba21ae340, type: 3}
 --- !u!222 &2122601465220034810
 CanvasRenderer:
   m_ObjectHideFlags: 0

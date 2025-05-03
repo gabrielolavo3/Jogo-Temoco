@@ -7,8 +7,10 @@ public class PauseManager : MonoBehaviour
 {
     public GameObject pausePanel;
     public GameObject inGameUI;
+    public Temporizador temporizador;
+    [HideInInspector] public bool jogoEstaPausado = false;
 
-    private List<GameObject> _cartoesPrefabsObjects = new List<GameObject>();
+    private List<GameObject> cartoesPrefabsObjects = new List<GameObject>();
 
     void Start()
     {
@@ -32,13 +34,13 @@ public class PauseManager : MonoBehaviour
     private void ColetarTodosCartoes()
     {
         // Limpa os cartões já existentes e procura novamente por objetos CardController para o array
-        _cartoesPrefabsObjects.Clear();
+        cartoesPrefabsObjects.Clear();
         CardController[] listaCartoes = FindObjectsOfType<CardController>();
 
         foreach (CardController card in listaCartoes)
         {
             // Percorre todos os cartões encontrados e adiciona ao array
-            _cartoesPrefabsObjects.Add(card.gameObject);
+            cartoesPrefabsObjects.Add(card.gameObject);
         }
     }
 
@@ -51,14 +53,16 @@ public class PauseManager : MonoBehaviour
     {
         if (pausePanel != null)
         {
+            jogoEstaPausado = true;
             pausePanel.SetActive(true);
+            temporizador.PausarTemporizador();
         }
         
         // Interrompe o tempo de execução
         Time.timeScale = 0f; 
 
         // Desativa todos os cartões armazenados
-        foreach (GameObject card in _cartoesPrefabsObjects)
+        foreach (GameObject card in cartoesPrefabsObjects)
         {
             if (card != null)
             {
@@ -71,13 +75,15 @@ public class PauseManager : MonoBehaviour
     {
         if (pausePanel != null)
         {
+            jogoEstaPausado = false;
             pausePanel.SetActive(false);
+            temporizador.RetomarTemporizador();
         }
             
         Time.timeScale = 1f;
 
         // Reativa todos os cartões
-        foreach (GameObject card in _cartoesPrefabsObjects)
+        foreach (GameObject card in cartoesPrefabsObjects)
         {
             if (card != null)
             {

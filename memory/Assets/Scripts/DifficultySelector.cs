@@ -6,36 +6,36 @@ using UnityEngine.UI;
 using static LevelController;
 
 public class DifficultySelector : MonoBehaviour
-{
-    public AudioPlayer audioPlayer;
-    public LevelData nivelFacil;
-    public LevelData nivelMedio;
-    public LevelData nivelDificil;    
+{    
+    public LevelData faseUm;
+    public LevelData faseDois;
+    public LevelData faseTres;
+    [HideInInspector] public AudioPlayer audioPlayer;
 
     public void ModoFacilSelecionado(string cena)
     {
-        ReconfigurarDificuldade(nivelFacil);
+        ReconfigurarDificuldade(faseUm);
         LoadingDeCena(cena);
     }
 
     public void ModoMedioSelecionado(string cena)
     {
-        ReconfigurarDificuldade(nivelMedio);
+        ReconfigurarDificuldade(faseDois);
         LoadingDeCena(cena);
     }
 
     public void ModoDificilSelecionado(string cena)
     {
-        ReconfigurarDificuldade(nivelDificil);
+        ReconfigurarDificuldade(faseTres);
         LoadingDeCena(cena);
     }
 
     private void ReconfigurarDificuldade(LevelData levelData)
     {
-        PlayerPrefs.SetInt("LevelColumns", levelData.Columns);
-        PlayerPrefs.SetInt("LevelRows", levelData.Rows);
-        PlayerPrefs.SetFloat("LevelSpacing", levelData.Spacing);
-        PlayerPrefs.SetInt("LevelDifficulty", levelData.Difficulty);
+        PlayerPrefs.SetInt("LevelColumns", levelData.Colunas);
+        PlayerPrefs.SetInt("LevelRows", levelData.Linhas);
+        PlayerPrefs.SetFloat("LevelSpacing", levelData.Espacamento);
+        PlayerPrefs.SetInt("LevelDifficulty", levelData.Pares);
     }
 
     public void LoadingDeCena(string nome_cena)
@@ -44,8 +44,7 @@ public class DifficultySelector : MonoBehaviour
 
         if (AudioPlayer.instanciaAudioPlayer != null)
         {
-            AudioPlayer.instanciaAudioPlayer.TocarSegundaMusica();
-            Destroy(audioPlayer);
+            AudioPlayer.instanciaAudioPlayer.TocarSegundaMusica();            
         }
     }
 }

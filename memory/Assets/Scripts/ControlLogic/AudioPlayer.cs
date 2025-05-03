@@ -8,7 +8,7 @@ public class AudioPlayer : MonoBehaviour
 {
     public AudioClip musicaDaCena1_2;
     public AudioClip musicaDaCena3;
-    private AudioSource _audioSource;
+    private AudioSource audioSource;
     public static AudioPlayer instanciaAudioPlayer;
 
     private void Awake()
@@ -17,7 +17,7 @@ public class AudioPlayer : MonoBehaviour
         {
             instanciaAudioPlayer = this;
             DontDestroyOnLoad(gameObject);            
-            _audioSource = GetComponent<AudioSource>();
+            audioSource = GetComponent<AudioSource>();
 
             SceneManager.sceneLoaded += CenaCarregada;
         }
@@ -29,10 +29,10 @@ public class AudioPlayer : MonoBehaviour
 
     void Start()
     {
-        if (_audioSource.clip == null)
+        if (audioSource.clip == null)
         {
-            _audioSource.clip = musicaDaCena1_2;
-            _audioSource.Play();
+            audioSource.clip = musicaDaCena1_2;
+            audioSource.Play();
         }       
     }
 
@@ -40,12 +40,12 @@ public class AudioPlayer : MonoBehaviour
     {
         if (cena.buildIndex == 0)
         {
-            if (_audioSource.clip != musicaDaCena1_2)
+            if (audioSource.clip != musicaDaCena1_2)
             {
-                _audioSource.Stop();
-                _audioSource.clip = musicaDaCena1_2;
-                _audioSource.loop = true;
-                _audioSource.Play();
+                audioSource.Stop();
+                audioSource.clip = musicaDaCena1_2;
+                audioSource.loop = true;
+                audioSource.Play();
             }
         }
     }    
@@ -57,9 +57,9 @@ public class AudioPlayer : MonoBehaviour
 
     public void TocarSegundaMusica()
     {
-        _audioSource.Stop();
-        _audioSource.clip = musicaDaCena3;
-        _audioSource.loop = true;
-        _audioSource.Play();
+        audioSource.Stop();
+        audioSource.clip = musicaDaCena3;
+        audioSource.loop = true;
+        audioSource.Play();
     }
 }

@@ -214,22 +214,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0e7503b53cea9b48ae06ba16fc20478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  faseUm:
+    Colunas: 4
+    Linhas: 3
+    Espacamento: 0.5
+    Pares: 6
+  faseDois:
+    Colunas: 4
+    Linhas: 4
+    Espacamento: 0.5
+    Pares: 8
+  faseTres:
+    Colunas: 5
+    Linhas: 4
+    Espacamento: 0.5
+    Pares: 10
   audioPlayer: {fileID: 0}
-  nivelFacil:
-    Columns: 4
-    Rows: 3
-    Spacing: 0.5
-    Difficulty: 3
-  nivelMedio:
-    Columns: 4
-    Rows: 4
-    Spacing: 0.5
-    Difficulty: 4
-  nivelDificil:
-    Columns: 5
-    Rows: 4
-    Spacing: 0.5
-    Difficulty: 5
 --- !u!4 &80934958
 Transform:
   m_ObjectHideFlags: 0
@@ -347,7 +347,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2416422136962739389, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
       propertyPath: m_Text
-      value: "M\xE9dio"
+      value: 02
       objectReference: {fileID: 0}
     - target: {fileID: 3654474677765668607, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -447,7 +447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8010002466079687962, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
       propertyPath: m_Name
-      value: SeletorDeNivel (1)
+      value: Fase02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -467,6 +467,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4527891}
     m_Modifications:
+    - target: {fileID: 2416422136962739389, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
+      propertyPath: m_Text
+      value: 01
+      objectReference: {fileID: 0}
     - target: {fileID: 3654474677765668607, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 5
@@ -565,7 +569,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8010002466079687962, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
       propertyPath: m_Name
-      value: SeletorDeNivel
+      value: Fase01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -587,7 +591,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2416422136962739389, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
       propertyPath: m_Text
-      value: "Dif\xEDcil"
+      value: 03
       objectReference: {fileID: 0}
     - target: {fileID: 3654474677765668607, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -687,7 +691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8010002466079687962, guid: 2fa142eece017eb409f2bff083da330d, type: 3}
       propertyPath: m_Name
-      value: SeletorDeNivel (2)
+      value: Fase03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -769,7 +773,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Selecione a Dificuldade
+  m_Text: Selecione uma Fase
 --- !u!222 &534800895
 CanvasRenderer:
   m_ObjectHideFlags: 0

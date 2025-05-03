@@ -725,8 +725,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 462eaac0b66173e4fbd2a23c4fd34eeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pontuacaoText: {fileID: 1190951903}
-  _pontuacaoFinalText: {fileID: 288962577}
+  pontuacaoText: {fileID: 1190951903}
+  pontuacaoFinalText: {fileID: 288962577}
 --- !u!4 &561809537
 Transform:
   m_ObjectHideFlags: 0

@@ -4,77 +4,57 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class CardController : MonoBehaviour
-{
-    public int maxCardTypes => prefabs.Count;
-    public int cardtype = -1;
-    public UnityEvent<CardController> onClicked;
+{        
     public List<GameObject> prefabs;
-    public float cardSize = 2f;
+    public int conteudoMaxCartas => prefabs.Count;
+    public float tamanhoDoCartao = 2f;
+    [HideInInspector] public int conteudoDoCartao = -1;
+    [HideInInspector] public UnityEvent<CardController> cartaClicada;
 
-    private Animator _animator;    
-    private AudioSource _audioSource;
-    [SerializeField] private AudioClip _revelarCartao;
-    [SerializeField] private AudioClip _esconderCartao;
-    [SerializeField] private float _velocidadePicthAudio;
+    private Animator animator;    
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip clipRevelarCartao;       
 
-    public bool IsInteractable
+    public bool InteracaoPermitida
     {
         get; set;
     } = true;
 
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
-        _audioSource = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Start()
     {
-        if (cardtype < 0)
+        if (conteudoDoCartao < 0)
         {
-            cardtype = UnityEngine.Random.Range(0, prefabs.Count);
+            conteudoDoCartao = UnityEngine.Random.Range(0, prefabs.Count);
         }
-        Instantiate(prefabs[cardtype], transform.position, Quaternion.identity, transform);
+        Instantiate(prefabs[conteudoDoCartao], transform.position, Quaternion.identity, transform);
     }
 
     private void OnMouseUpAsButton()
     {
-        if (IsInteractable)
+        if (InteracaoPermitida)
         {
-            onClicked.Invoke(this);
+            cartaClicada.Invoke(this);
         }
     }
 
-    public void TestAnimation()
+    public void RevelarCarta()
     {
-        IEnumerator AnimationCoroutine()
-        {
-            Reveal();
-            yield return new WaitForSeconds(2f);
-            Hide();
-        }
-
-        StartCoroutine(AnimationCoroutine());
-    }
-
-    public void Reveal()
-    {
-        _animator.SetBool("revealed", true);
+        animator.SetBool("revealed", true);
         
-        if (_revelarCartao != null)
+        if (clipRevelarCartao != null)
         {
-            _audioSource.PlayOneShot(_revelarCartao);
+            audioSource.PlayOneShot(clipRevelarCartao);
         }
     }
 
-    public void Hide()
+    public void EsconderCarta()
     {
-        _animator.SetBool("revealed", false);
-
-        if (_esconderCartao != null)
-        {
-            _audioSource.pitch = _velocidadePicthAudio;
-            _audioSource.PlayOneShot(_esconderCartao);
-        }
+        animator.SetBool("revealed", false);
     }
 }

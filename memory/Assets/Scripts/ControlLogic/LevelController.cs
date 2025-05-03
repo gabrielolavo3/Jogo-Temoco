@@ -5,198 +5,213 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[Serializable] public class LevelData
+{
+    [Header("Configurações de Fase")]
+    public int Colunas;
+    public int Linhas;
+    public float Espacamento;
+    public int Pares;
+}
+
 public class LevelController : MonoBehaviour
-{    
-    [Serializable] public class LevelData
-    {
-        [Header("Configurações da Dificuldade")]
-        public int Columns;
-        public int Rows;
-        public float Spacing;
-        public int Difficulty;
-    }
-
-    private List<CardController> _cards = new List<CardController>();
-
-    [SerializeField] private CardController _cardPrefab;
-    //[SerializeField] private List<LevelData> _levels = new List<LevelData>();
-
-    private CardController _activeCard;
-    private ScoreManager _scoreManager;
-    private LevelData _currentLevel;
-    private bool _blockInput = true;
-    //private int _level = 0;
-    private bool _gameEnded = false;
-
+{        
+    public float tempoMemorizacao;
+    public Temporizador temporizador;
+    [HideInInspector] public bool jogoConcluido = false;
+    
+    private bool cliqueBloqueado = true;
+    private LevelData configFaseAtual;
+    private CardController cartaSelecionada;
+    private ScoreManager scoreManager;
+    private List<CardController> listaCartoes = new List<CardController>();
+    [SerializeField] private CardController prefabCarta;
+        
     void Start()
     {
-        //_level = PlayerPrefs.GetInt("Level", 0);
-
-        _currentLevel = new LevelData
+        configFaseAtual = new LevelData
         {
-            Columns = PlayerPrefs.GetInt("LevelColumns", 4),
-            Rows = PlayerPrefs.GetInt("LevelRows", 3),
-            Spacing = PlayerPrefs.GetFloat("LevelSpacing", 0.5f),
-            Difficulty = PlayerPrefs.GetInt("LevelDifficulty", 3)
+            Colunas = PlayerPrefs.GetInt("LevelColumns", 4),
+            Linhas = PlayerPrefs.GetInt("LevelRows", 3),
+            Espacamento = PlayerPrefs.GetFloat("LevelSpacing", 0.5f),
+            Pares = PlayerPrefs.GetInt("LevelDifficulty", 3)
         };
 
+        if (temporizador != null)
+        {
+            temporizador.ReconfigurarTodoTemporizador();
+        }
+
         StartLevel();
-        _scoreManager = FindObjectOfType<ScoreManager>();
-        _scoreManager.ReconfigurarPlacares();
+        scoreManager = FindObjectOfType<ScoreManager>();
+        scoreManager.ReconfigurarPlacares();
     }
 
     public void StartLevel()
     {
-        Debug.Assert((_currentLevel.Rows * _currentLevel.Columns) % 2 == 0);
+        Debug.Assert((configFaseAtual.Linhas * configFaseAtual.Colunas) % 2 == 0);
 
-        if (_currentLevel.Difficulty > _cardPrefab.maxCardTypes)
+        if (configFaseAtual.Pares > prefabCarta.conteudoMaxCartas)
         {
-            _currentLevel.Difficulty = Math.Min(_currentLevel.Difficulty, _cardPrefab.maxCardTypes);
+            configFaseAtual.Pares = Math.Min(configFaseAtual.Pares, prefabCarta.conteudoMaxCartas);
             Debug.Assert(false);
         }
 
-        _cards.ForEach(c => Destroy(c.gameObject));
-        _cards.Clear();
+        listaCartoes.ForEach(c => Destroy(c.gameObject));
+        listaCartoes.Clear();
 
-        List<int> allTypes = new List<int>();
-        for (int a = 0; a < _cardPrefab.maxCardTypes; a++)
+        List<int> cartasDisponiveis = new List<int>();
+        for (int a = 0; a < prefabCarta.conteudoMaxCartas; a++)
         {
-            allTypes.Add(a);
+            cartasDisponiveis.Add(a);
         }
 
-        List<int> gameTypes = new List<int>();
+        List<int> cartasDaPartida = new List<int>();
 
-        for (int i = 0; i < (_currentLevel.Rows * _currentLevel.Columns) / 2; i++)
+        for (int i = 0; i < (configFaseAtual.Linhas * configFaseAtual.Colunas) / 2; i++)
         {
-            if (allTypes.Count == 0)
+            if (cartasDisponiveis.Count == 0)
             {
                 Debug.LogError("Não há tipos suficientes de cartas para o número de pares!");
                 break;
             }
 
-            int chosenType = allTypes[UnityEngine.Random.Range(0, allTypes.Count)];
-            allTypes.Remove(chosenType);
-            gameTypes.Add(chosenType);
+            int chosenType = cartasDisponiveis[UnityEngine.Random.Range(0, cartasDisponiveis.Count)];
+            cartasDisponiveis.Remove(chosenType);
+            cartasDaPartida.Add(chosenType);
         }
 
-        List<int> chosenTypes = new List<int>();
+        List<int> paresDeCartas = new List<int>();
 
-        foreach (var type in gameTypes)
+        foreach (var indexPar in cartasDaPartida)
         {
-            chosenTypes.Add(type);
-            chosenTypes.Add(type);
+            paresDeCartas.Add(indexPar);
+            paresDeCartas.Add(indexPar);
         }
 
-        Shuffle(chosenTypes);
+        EmbaralharListaDeCartas(paresDeCartas);
 
-        Vector3 offset = new Vector3((_currentLevel.Columns - 1) * (_cardPrefab.cardSize + _currentLevel.Spacing), (_currentLevel.Rows - 1) * (_cardPrefab.cardSize + _currentLevel.Spacing), 0f) * 0.5f;
+        Vector3 offset = new Vector3((configFaseAtual.Colunas - 1) * (prefabCarta.tamanhoDoCartao + configFaseAtual.Espacamento), (configFaseAtual.Linhas - 1) * (prefabCarta.tamanhoDoCartao + configFaseAtual.Espacamento), 0f) * 0.5f;
 
-        for (int y = 0; y < _currentLevel.Rows; y++)
+        for (int linhas = 0; linhas < configFaseAtual.Linhas; linhas++)
         {
-            for (int col = 0; col < _currentLevel.Columns; col++)
+            for (int colunas = 0; colunas < configFaseAtual.Colunas; colunas++)
             {
-                Vector3 position = new Vector3(col * (_cardPrefab.cardSize + _currentLevel.Spacing), y * (_cardPrefab.cardSize + _currentLevel.Spacing), 0f);
-                var card = Instantiate(_cardPrefab, position - offset, Quaternion.identity);
-                card.cardtype = chosenTypes[0];
-                chosenTypes.RemoveAt(0);
-                card.onClicked.AddListener(OnCardClicked);
-                _cards.Add(card);
+                Vector3 posicaoCartao = new Vector3(colunas * (prefabCarta.tamanhoDoCartao + configFaseAtual.Espacamento), linhas * (prefabCarta.tamanhoDoCartao + configFaseAtual.Espacamento), 0f);
+                var carta = Instantiate(prefabCarta, posicaoCartao - offset, Quaternion.identity);
+                carta.conteudoDoCartao = paresDeCartas[0];
+                paresDeCartas.RemoveAt(0);
+                carta.cartaClicada.AddListener(AoClicarNaCarta);
+                listaCartoes.Add(carta);
             }
         }
 
-        _blockInput = false;
-        _gameEnded = false;
-        SetCardsInteractable(true);
-        _activeCard = null;
+        jogoConcluido = false;
+        ReconfigurarInteracaoDeCarta(false);
+        cartaSelecionada = null;
+        StartCoroutine(MostrarCartasTemporariamente());
     }
 
-    private void Shuffle(List<int> list)
+    private void EmbaralharListaDeCartas(List<int> lista)
     {
-        for (int i = 0; i < list.Count; i++)
+        for (int i = 0; i < lista.Count; i++)
         {
-            int randomIndex = UnityEngine.Random.Range(i, list.Count);
-            (list[i], list[randomIndex]) = (list[randomIndex], list[i]);
+            int randomIndex = UnityEngine.Random.Range(i, lista.Count);
+            (lista[i], lista[randomIndex]) = (lista[randomIndex], lista[i]);
         }
     }
 
-    private void OnCardClicked(CardController card)
+    private IEnumerator MostrarCartasTemporariamente()
     {
-        if (_blockInput)
-            return;
-
-        _blockInput = true;
-
-        if (_activeCard == null)
+        foreach (var carta in listaCartoes)
         {
-            StartCoroutine(SelectCard(card));
-            return;
+            carta.RevelarCarta();
         }
 
-        if (card.cardtype == _activeCard.cardtype)
+        yield return new WaitForSeconds(tempoMemorizacao);
+
+        foreach (var carta in listaCartoes)
         {
-            StartCoroutine(Score(card));
-            return;
+            carta.EsconderCarta();
         }
 
-        StartCoroutine(Fall(card));
+        ReconfigurarInteracaoDeCarta(true);
+        cliqueBloqueado = false;
     }
 
-    private IEnumerator SelectCard(CardController card)
+    private void AoClicarNaCarta(CardController carta)
     {
-        _activeCard = card;
-        _activeCard.Reveal();
+        if (cliqueBloqueado || carta == cartaSelecionada)
+        {
+            return;
+        }
+
+        cliqueBloqueado = true;
+
+        if (cartaSelecionada == null)
+        {
+            StartCoroutine(SelecionarCarta(carta));
+            return;
+        }
+
+        if (carta.conteudoDoCartao == cartaSelecionada.conteudoDoCartao)
+        {
+            StartCoroutine(CartasConvergentes(carta));
+            return;
+        }
+
+        StartCoroutine(ParIncorreto(carta));
+    }
+
+    private IEnumerator SelecionarCarta(CardController carta)
+    {
+        cartaSelecionada = carta;
+        cartaSelecionada.RevelarCarta();
         yield return new WaitForSeconds(0.5f);
-        _blockInput = false;
+        cliqueBloqueado = false;
     }
 
-    private IEnumerator Score(CardController card)
+    private IEnumerator CartasConvergentes(CardController carta)
     {
-        card.Reveal();
+        carta.RevelarCarta();
         yield return new WaitForSeconds(1f);
-        _cards.Remove(_activeCard);
-        _cards.Remove(card);
-        Destroy(card.gameObject);
-        Destroy(_activeCard.gameObject);
-        _activeCard = null;
-        _scoreManager.AddAcerto();
+        listaCartoes.Remove(cartaSelecionada);
+        listaCartoes.Remove(carta);
+        Destroy(carta.gameObject);
+        Destroy(cartaSelecionada.gameObject);
+        cartaSelecionada = null;
+        scoreManager.AdicionarAcerto();
 
-        if (_cards.Count < 1)
+        if (listaCartoes.Count < 1)
         {
-            Win();
+            Vitoria();
             yield break;
         }
 
-        _blockInput = false;
+        cliqueBloqueado = false;
     }
 
-    private IEnumerator Fall(CardController card)
+    private IEnumerator ParIncorreto(CardController carta)
     {
-        card.Reveal();
+        carta.RevelarCarta();
         yield return new WaitForSeconds(1f);
-        _activeCard.Hide();
-        card.Hide();
-        _activeCard = null;
-        _scoreManager.AddErro();
+        cartaSelecionada.EsconderCarta();
+        carta.EsconderCarta();
+        cartaSelecionada = null;
+        scoreManager.AdicionarErro();
 
         yield return new WaitForSeconds(0.5f);
-        _blockInput = false;
+        cliqueBloqueado = false;
     }
 
-    private void Win()
+    private void Vitoria()
     {
-        //_level++;
-
-        //if (_level >= _levels.Count)
-        //{
-        //    _level = 0;
-        //}
-
-        //PlayerPrefs.SetInt("Level", _level);
         Debug.Log("Victory");
 
-        _gameEnded = true;
-        _scoreManager.SalvarPontuacao();
-        SetCardsInteractable(false);
+        jogoConcluido = true;
+        scoreManager.SalvarPontuacao();
+        ReconfigurarInteracaoDeCarta(false);
+        temporizador.PausarTemporizador();
 
         StartCoroutine(TransitionFinalScene());
     }
@@ -207,11 +222,11 @@ public class LevelController : MonoBehaviour
         SceneManager.LoadScene("FinalScene");
     }
 
-    private void SetCardsInteractable(bool interactable)
+    private void ReconfigurarInteracaoDeCarta(bool interagivel)
     {
-        foreach (var card in _cards)
+        foreach (var carta in listaCartoes)
         {
-            card.IsInteractable = interactable;
+            carta.InteracaoPermitida = interagivel;
         }
     }
 }
