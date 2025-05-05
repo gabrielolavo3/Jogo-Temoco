@@ -204,7 +204,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1feb69b93f1ac85479297f18e26a0f63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardtype: -1
   prefabs:
   - {fileID: 6365754226878108037, guid: 923d1ac5cec8168439078e4a2ad26ee4, type: 3}
   - {fileID: 2651303347865793946, guid: 3dc68b9c77d01c44797debe6b2e79f97, type: 3}
@@ -216,8 +215,9 @@ MonoBehaviour:
   - {fileID: 3928795545850939188, guid: 51447752c8b90014596e7231bb0ada9d, type: 3}
   - {fileID: 4587684214709590025, guid: 8d3b81300b517f840a743a54f1b6d423, type: 3}
   - {fileID: 6477167840637430250, guid: bfae7d3a6d0b17742a4f617d31fae9e5, type: 3}
-  cardSize: 2
-  onClicked:
+  tamanhoDoCartao: 2
+  conteudoDoCartao: -1
+  cartaClicada:
     m_PersistentCalls:
       m_Calls: []
   clipRevelarCartao: {fileID: 8300000, guid: 97166d6d8ed9b0e4f9282bfba21ae340, type: 3}

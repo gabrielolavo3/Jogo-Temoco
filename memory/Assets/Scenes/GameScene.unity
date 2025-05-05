@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 44314519}
   - component: {fileID: 44314518}
   - component: {fileID: 44314517}
+  - component: {fileID: 44314520}
   m_Layer: 5
   m_Name: PauseButton
   m_TagString: Untagged
@@ -371,6 +372,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 44314515}
   m_CullTransparentMesh: 1
+--- !u!114 &44314520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44314515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.39215687}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &258508404
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,7 +834,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: PlayScene
+          m_StringArgument: SelectDifficulty
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &687282308
@@ -1003,6 +1019,7 @@ GameObject:
   - component: {fileID: 808379954}
   - component: {fileID: 808379956}
   - component: {fileID: 808379955}
+  - component: {fileID: 808379957}
   m_Layer: 5
   m_Name: PauseBox
   m_TagString: Untagged
@@ -1069,6 +1086,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 808379953}
   m_CullTransparentMesh: 1
+--- !u!114 &808379957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808379953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.15686275}
+  m_EffectDistance: {x: 10, y: -10}
+  m_UseGraphicAlpha: 1
 --- !u!1 &810801949
 GameObject:
   m_ObjectHideFlags: 0
@@ -2243,6 +2275,7 @@ GameObject:
   - component: {fileID: 1639057634}
   - component: {fileID: 1639057633}
   - component: {fileID: 1639057635}
+  - component: {fileID: 1639057636}
   m_Layer: 5
   m_Name: DialogueBox
   m_TagString: Untagged
@@ -2366,6 +2399,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1639057636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639057631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.15686275}
+  m_EffectDistance: {x: 10, y: -10}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1685168823
 GameObject:
   m_ObjectHideFlags: 0
