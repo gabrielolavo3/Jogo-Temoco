@@ -1,11 +1,12 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class CaixaDeDialogos : MonoBehaviour
 {
-    [Header("Referências da História")]
+    [Header("ReferÃªncias da HistÃ³ria")]
     public GameObject historyPanel;
     public Image iconePersonagem;
     public Text textoDialogo;
@@ -14,22 +15,17 @@ public class CaixaDeDialogos : MonoBehaviour
     public Sprite sprite1;
     public Sprite sprite2;
 
+    public event Action DialogoFinalizado;
     private int fraseAtual = 0;
     private string[] vetorFrases = new string[]
     {
-        "Oi! Eu sou o Koori, o aprendiz de magia do Guardião da Floresta!",
-        "Hoje, eu tava treinando um feitiço de duplicação super difícil... e... ah, você não vai acreditar...",
+        "Oi! Eu sou o Koori, o aprendiz de magia do GuardiÃ£o da Floresta!",
+        "Hoje, eu tava treinando um feitiÃ§o de duplicaÃ§Ã£o super difÃ­cil... e... ah, vocÃª nÃ£o vai acreditar...",
         "Eu acidentalmente lancei a magia na minha casa inteira! Agora tem coisas duplicadas por todos os lados!",
-        "Minha mamãe vai chegar logo, e eu prometi que ia deixar tudo arrumado...",
-        "Mas sozinho eu não vou conseguir...",
-        "Você pode me ajudar a encontrar os pares de objetos iguais e desfazer a mágica?"
+        "Minha mamÃ£e vai chegar logo, e eu prometi que ia deixar tudo arrumado...",
+        "Mas sozinho eu nÃ£o vou conseguir...",
+        "VocÃª pode me ajudar a encontrar os pares de objetos iguais e desfazer a mÃ¡gica?"
     };
-
-    void Start()
-    {
-        iconePersonagem.sprite = sprite1;
-        ExibirDialogo();
-    }
 
     public void ExibirDialogo()
     {
@@ -37,6 +33,7 @@ public class CaixaDeDialogos : MonoBehaviour
         historyPanel.SetActive(true);
         fraseAtual = 0;
         textoDialogo.text = vetorFrases[fraseAtual];
+        iconePersonagem.sprite = sprite1;
     }
 
     public void ProximaFrase()
@@ -55,7 +52,7 @@ public class CaixaDeDialogos : MonoBehaviour
         else
         {
             historyPanel.SetActive(false);
-            Time.timeScale = 1f;
+            DialogoFinalizado?.Invoke();
         }
     }
 }

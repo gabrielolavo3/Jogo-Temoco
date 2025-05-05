@@ -26,9 +26,7 @@ public class PauseManager : MonoBehaviour
             inGameUI.SetActive(true);
         }            
 
-        Time.timeScale = 1f;
-
-        ColetarTodosCartoes();
+        Time.timeScale = 1f;        
     }
 
     private void ColetarTodosCartoes()
@@ -59,7 +57,8 @@ public class PauseManager : MonoBehaviour
         }
         
         // Interrompe o tempo de execução
-        Time.timeScale = 0f; 
+        Time.timeScale = 0f;
+        ColetarTodosCartoes();
 
         // Desativa todos os cartões armazenados
         foreach (GameObject card in cartoesPrefabsObjects)
@@ -95,6 +94,7 @@ public class PauseManager : MonoBehaviour
     public void ReiniciarJogo(string nome_cena)
     {
         Time.timeScale = 1f;
+        InfoJogo.JogoFoiReiniciado = true;
         SceneManager.LoadScene(nome_cena);
     }
 

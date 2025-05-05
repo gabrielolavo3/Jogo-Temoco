@@ -42,7 +42,7 @@ public class LevelController : MonoBehaviour
             temporizador.ReconfigurarTodoTemporizador();
         }
 
-        StartLevel();
+        //StartLevel();
         scoreManager = FindObjectOfType<ScoreManager>();
         scoreManager.ReconfigurarPlacares();
     }

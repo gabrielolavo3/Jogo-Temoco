@@ -216,17 +216,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faseUm:
     Colunas: 4
+    Linhas: 2
+    Espacamento: 0.5
+    Pares: 4
+  faseDois:
+    Colunas: 4
     Linhas: 3
     Espacamento: 0.5
     Pares: 6
-  faseDois:
-    Colunas: 4
-    Linhas: 4
-    Espacamento: 0.5
-    Pares: 8
   faseTres:
-    Colunas: 5
-    Linhas: 4
+    Colunas: 6
+    Linhas: 3
     Espacamento: 0.5
     Pares: 10
   audioPlayer: {fileID: 0}
