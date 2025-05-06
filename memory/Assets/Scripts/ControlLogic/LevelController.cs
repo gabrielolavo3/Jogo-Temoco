@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [Serializable] public class LevelData
 {
@@ -15,8 +16,14 @@ using UnityEngine.SceneManagement;
 }
 
 public class LevelController : MonoBehaviour
-{        
-    public float tempoMemorizacao;
+{
+    [Header("Referências de Countdown")]
+    public GameObject painelMemorizacao;
+    public Text contadorText;
+    //public Text finalText;
+
+    [Header("Configuração de tempo")]
+    public int tempoMemorizacao;
     public Temporizador temporizador;
     [HideInInspector] public bool jogoConcluido = false;
     
@@ -109,7 +116,7 @@ public class LevelController : MonoBehaviour
         jogoConcluido = false;
         ReconfigurarInteracaoDeCarta(false);
         cartaSelecionada = null;
-        StartCoroutine(MostrarCartasTemporariamente());
+        StartCoroutine(MostrarCartasECountdown());
     }
 
     private void EmbaralharListaDeCartas(List<int> lista)
@@ -121,14 +128,31 @@ public class LevelController : MonoBehaviour
         }
     }
 
-    private IEnumerator MostrarCartasTemporariamente()
+    private IEnumerator MostrarCartasECountdown()
     {
+        painelMemorizacao.SetActive(true);
+        //finalText.gameObject.SetActive(false);
+        contadorText.gameObject.SetActive(true);
+
         foreach (var carta in listaCartoes)
         {
             carta.RevelarCarta();
         }
 
-        yield return new WaitForSeconds(tempoMemorizacao);
+        for (int a = tempoMemorizacao; a > 0; a--)
+        {
+            contadorText.text = a.ToString();
+            yield return new WaitForSeconds(1f);
+        }        
+
+        contadorText.gameObject.SetActive(false);
+        //finalText.gameObject.SetActive(true);
+        //finalText.text = "Vamos lá!";
+
+        yield return new WaitForSeconds(0.3f);
+
+        //finalText.gameObject.SetActive(false);
+        painelMemorizacao.SetActive(false);        
 
         foreach (var carta in listaCartoes)
         {

@@ -44,10 +44,10 @@ public class CaixaDeDialogos : MonoBehaviour
         {
             textoDialogo.text = vetorFrases[fraseAtual];
 
-            if (fraseAtual == 5)
-            {
-                iconePersonagem.sprite = sprite2;
-            }
+            //if (fraseAtual == 5)
+            //{
+            //    iconePersonagem.sprite = sprite2;
+            //}
         }
         else
         {
