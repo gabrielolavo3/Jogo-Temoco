@@ -55,6 +55,25 @@ public class ScoreManager : MonoBehaviour
     {
         // Subescreve e salvar a pontuação do jogo atual 
         PlayerPrefs.SetInt("UltimaPontuacaoTotal", pontuacaoTotalJogo);
+
+        int faseAtual = PlayerPrefs.GetInt("FaseAtual", 1);
+        string pontuacaoMaximaFase = "MelhorPontuacaoFase" + faseAtual;
+        int pontuacaoAnteriorFase = PlayerPrefs.GetInt(pontuacaoMaximaFase, 0);
+
+        if (pontuacaoTotalJogo > pontuacaoAnteriorFase)
+        {
+            PlayerPrefs.SetInt(pontuacaoMaximaFase, pontuacaoTotalJogo);
+        }
+
+        if (faseAtual == 1 && pontuacaoTotalJogo >= 300)
+        {
+            PlayerPrefs.SetInt("FaseDesbloqueada", Mathf.Max(2, PlayerPrefs.GetInt("FaseDesbloqueada", 1)));
+        }
+        else if (faseAtual == 2 && pontuacaoTotalJogo >= 500)
+        {
+            PlayerPrefs.SetInt("FaseDesbloqueada", Mathf.Max(3, PlayerPrefs.GetInt("FaseDesbloqueada", 2)));
+        }
+
         PlayerPrefs.Save();
     }
 

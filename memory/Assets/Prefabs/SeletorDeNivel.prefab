@@ -225,3 +225,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0e7503b53cea9b48ae06ba16fc20478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  faseUm:
+    Colunas: 0
+    Linhas: 0
+    Espacamento: 0
+    Pares: 0
+  faseDois:
+    Colunas: 0
+    Linhas: 0
+    Espacamento: 0
+    Pares: 0
+  faseTres:
+    Colunas: 0
+    Linhas: 0
+    Espacamento: 0
+    Pares: 0
+  fase2Btn: {fileID: 0}
+  fase3Btn: {fileID: 0}
+  audioPlayer: {fileID: 0}
+  faseDesbloqueada: 0
+  pontuacaoFase1: 0
+  pontuacaoFase2: 0

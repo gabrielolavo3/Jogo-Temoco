@@ -14,7 +14,7 @@ public class ConfirmarAcao : MonoBehaviour
 
     private string acaoSolicitada = "";
     private string nomeCena;
-    private PauseManager pauseManager;
+    private PauseManager pauseManager;    
     
     void Start()
     {
