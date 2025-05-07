@@ -2185,7 +2185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   caixaDeDialogos: {fileID: 1584160083}
   levelController: {fileID: 687282310}
-  chanceDeReverHistoria: 45
+  chanceDeReverHistoria: 15
 --- !u!4 &1362241879
 Transform:
   m_ObjectHideFlags: 0
