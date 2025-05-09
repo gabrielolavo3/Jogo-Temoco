@@ -8,8 +8,10 @@ public class BloqueioFase : MonoBehaviour
     public GameObject infoBloqueioFase;
     public Text tituloText;
     public Text requisitosFasesText;
-    public Button cancelarBtn;    
-    
+    public Button cancelarBtn;
+    private int pontuacaoMinimaFase1 = 300;
+    private int pontuacaoMinimaFase2 = 500;
+
     void Start()
     {
         infoBloqueioFase.SetActive(false);        
@@ -22,12 +24,12 @@ public class BloqueioFase : MonoBehaviour
         if (indexFaseBloqueada == 2)
         {
             tituloText.text = "Fase 2 Bloqueada";
-            requisitosFasesText.text = "Complete a Fase 1 com pelo menos 300 pontos.";
+            requisitosFasesText.text = "Complete a Fase 1 com pelo menos " + pontuacaoMinimaFase1 + " pontos.";
         }
         else if (indexFaseBloqueada == 3)
         {
             tituloText.text = "Fase 3 Bloqueada";
-            requisitosFasesText.text = "Complete a Fase 2 com pelo menos 500 pontos.";
+            requisitosFasesText.text = "Complete a Fase 2 com pelo menos " + pontuacaoMinimaFase2 + " pontos.";
         }
     }
 

@@ -47,14 +47,24 @@ public class ConfirmarAcao : MonoBehaviour
     private void ConfirmarSaida()
     {
         pauseManager.pausePanel.SetActive(false);
-        infoPauseImage.SetActive(false);
+        
+        if (pauseManager != null)
+        {
+            pauseManager.pausePanel.SetActive(false);
+        }
+
         pauseManager.CarregarTelaInicial("SelectDifficulty");
     }
 
     private void ConfirmarReinicioJogo()
     {
         pauseManager.pausePanel.SetActive(false);
-        infoPauseImage.SetActive(false);
+        
+        if (pauseManager != null)
+        {
+            pauseManager.pausePanel.SetActive(false);
+        }
+
         pauseManager.ReiniciarJogo("GameScene");
     }
 

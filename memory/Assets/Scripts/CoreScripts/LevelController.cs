@@ -19,8 +19,7 @@ public class LevelController : MonoBehaviour
 {
     [Header("Referências de Countdown")]
     public GameObject painelMemorizacao;
-    public Text contadorText;
-    //public Text finalText;
+    public Text contadorText;    
 
     [Header("Configuração de tempo")]
     public int tempoMemorizacao;
@@ -130,8 +129,7 @@ public class LevelController : MonoBehaviour
 
     private IEnumerator MostrarCartasECountdown()
     {
-        painelMemorizacao.SetActive(true);
-        //finalText.gameObject.SetActive(false);
+        painelMemorizacao.SetActive(true);        
         contadorText.gameObject.SetActive(true);
 
         foreach (var carta in listaCartoes)
@@ -145,13 +143,10 @@ public class LevelController : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }        
 
-        contadorText.gameObject.SetActive(false);
-        //finalText.gameObject.SetActive(true);
-        //finalText.text = "Vamos lá!";
+        contadorText.gameObject.SetActive(false);        
 
         yield return new WaitForSeconds(0.3f);
-
-        //finalText.gameObject.SetActive(false);
+        
         painelMemorizacao.SetActive(false);        
 
         foreach (var carta in listaCartoes)
