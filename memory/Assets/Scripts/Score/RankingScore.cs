@@ -7,12 +7,14 @@ public class RankingScore : MonoBehaviour
 {
     private int pontuacaoJogatina;
     private int melhorPontuacao;
+    private ProgressoJogo progressoJogo;
     [SerializeField] private Text pontuacaoText;
     [SerializeField] private Text pontuacaoFinalText;
     
     void Start()
     {
         Placares();
+        ImprimirProgresso();
     }
 
     private void Placares()
@@ -35,5 +37,13 @@ public class RankingScore : MonoBehaviour
     {
         pontuacaoText.text = pontuacaoJogatina.ToString() + "x";
         pontuacaoFinalText.text = melhorPontuacao.ToString() + "x";
+    }
+
+    private void ImprimirProgresso()
+    {
+        progressoJogo = FindObjectOfType<ProgressoJogo>();
+        int progressoAtual = progressoJogo.CalcularProgressoConclusao();
+
+        Debug.Log("Progresso de conclusão do jogo: " + progressoAtual + "%");
     }
 }

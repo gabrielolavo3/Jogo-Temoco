@@ -32,12 +32,12 @@ public class PopUpFinal : MonoBehaviour
 
         if (tipoAcao == "Reiniciar")
         {
-            textoAviso.text = "Você está prestes a reiniciar o jogo. Deseja continuar?";
+            textoAviso.text = "O jogo vai ser reiniciado e retornar para a fase anterior. Deseja continuar?";
             botaoConfirmar.onClick.AddListener(() => ReiniciarCenaJogo("GameScene"));
         }
         else if (tipoAcao == "TelaInicial")
         {
-            textoAviso.text = "Você está prestes a sair do jogo e voltar para o menu inicial. Deseja continuar??";
+            textoAviso.text = "O jogo vai ser encaminhado para o menu inicial. Deseja continuar?";
             botaoConfirmar.onClick.AddListener(() => CarregarCenaInicial("SelectDifficulty"));
         }
     }

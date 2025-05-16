@@ -9,4 +9,5 @@ public class PontuacaoConfigFase : ScriptableObject
     public int pontosMinimos;
     public int pontosIntermadiarios;
     public int pontosMaximos;
+    public int acessoMinimo;
 }

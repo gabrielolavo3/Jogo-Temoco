@@ -15,4 +15,5 @@ MonoBehaviour:
   idFase: 1
   pontosMinimos: 100
   pontosIntermadiarios: 200
-  pontosMaximos: 400
+  pontosMaximos: 350
+  acessoMinimo: 1

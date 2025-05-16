@@ -32,13 +32,13 @@ public class ConfirmarAcao : MonoBehaviour
 
         if (tipoAcao == "TelaInicial")
         {
-            avisoText.text = "Você está prestes a sair do jogo e voltar para o menu inicial. Deseja continuar?";
+            avisoText.text = "O jogo vai ser encerrado e voltar para o menu inicial. Deseja continuar?";
             confirmarBtn.onClick.RemoveAllListeners();
             confirmarBtn.onClick.AddListener(() => ConfirmarSaida());
         }
         else if (tipoAcao == "Reiniciar")
         {
-            avisoText.text = "Você está prestes a reiniciar o jogo. Deseja continuar?";
+            avisoText.text = "O jogo vai ser reiniciado e perder o progresso atual. Deseja continuar?";
             confirmarBtn.onClick.RemoveAllListeners();
             confirmarBtn.onClick.AddListener(() => ConfirmarReinicioJogo());
         }

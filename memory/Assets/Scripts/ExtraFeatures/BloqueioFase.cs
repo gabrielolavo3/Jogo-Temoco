@@ -9,12 +9,13 @@ public class BloqueioFase : MonoBehaviour
     public Text tituloText;
     public Text requisitosFasesText;
     public Button cancelarBtn;
+    //public AudioSource audioSource;
     private int pontuacaoMinimaFase1 = 300;
     private int pontuacaoMinimaFase2 = 500;
 
     void Start()
     {
-        infoBloqueioFase.SetActive(false);        
+        infoBloqueioFase.SetActive(false);           
     }
 
     public void MostrarInformacaoBloqueio(int indexFaseBloqueada)
@@ -35,6 +36,11 @@ public class BloqueioFase : MonoBehaviour
 
     public void DesativarPopUp()
     {
+        //if (audioSource != null && audioSource.clip != null)
+        //{
+        //    audioSource.Play();
+        //}
+
         infoBloqueioFase.SetActive(false);
     }
 }

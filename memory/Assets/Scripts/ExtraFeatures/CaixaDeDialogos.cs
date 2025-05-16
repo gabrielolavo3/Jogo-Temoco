@@ -19,12 +19,12 @@ public class CaixaDeDialogos : MonoBehaviour
     private int fraseAtual = 0;
     private string[] vetorFrases = new string[]
     {
-        "Oi! Eu sou o Koori, o aprendiz de magia do Guardião da Floresta!",
-        "Hoje, eu tava treinando um feitiço de duplicação super difícil... e... ah, você não vai acreditar...",
-        "Eu acidentalmente lancei a magia na minha casa inteira! Agora tem coisas duplicadas por todos os lados!",
-        "Minha mamãe vai chegar logo, e eu prometi que ia deixar tudo arrumado...",
-        "Mas sozinho eu não vou conseguir...",
-        "Você pode me ajudar a encontrar os pares de objetos iguais e desfazer a mágica?"
+        "Oi! Eu sou o Koori, o aprendiz de magia do Protetor da Floresta!",
+        "Hoje, eu tava treinando uma magia de duplicar itens super complicada... e... ah, eu nem acredito...",
+        "Acidentalmente lancei a magia na minha casa inteira! Agora tem coisas repetidas por todos os lados!",
+        "Meus pais podem voltar para casa chegar logo, e eu prometi que ia deixar tudo arrumado...",
+        "Mas sozinho, eu nunca vou conseguir...",
+        "Pode me ajudar a encontrar os pares de objetos iguais e desfazer a magia?"
     };
 
     public void ExibirDialogo()

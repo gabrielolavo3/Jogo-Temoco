@@ -28,7 +28,9 @@ public class DifficultySelector : MonoBehaviour
 
     public void ModoFacilSelecionado(string cena)
     {
+        AudioPlayer.instanciaAudioPlayer.AlterarMusica();
         Debug.Log("Fase1");
+        AdicionarAcessoFase(1);
         ReconfigurarDificuldade(faseUm);
         PlayerPrefs.SetInt("FaseAtual", 1);
         LoadingDeCena(cena);
@@ -43,6 +45,8 @@ public class DifficultySelector : MonoBehaviour
 
         if (faseDesbloqueada >= 2 && pontuacaoFase1 >= 300)
         {
+            AudioPlayer.instanciaAudioPlayer.AlterarMusica();
+            AdicionarAcessoFase(2);
             ReconfigurarDificuldade(faseDois);
             PlayerPrefs.SetInt("FaseAtual", 2);
             LoadingDeCena(cena);
@@ -62,6 +66,8 @@ public class DifficultySelector : MonoBehaviour
 
         if (faseDesbloqueada >= 3 && pontuacaoFase2 >= 500)
         {
+            AudioPlayer.instanciaAudioPlayer.AlterarMusica();
+            AdicionarAcessoFase(3);
             ReconfigurarDificuldade(faseTres);
             PlayerPrefs.SetInt("FaseAtual", 3);
             LoadingDeCena(cena);
@@ -80,13 +86,17 @@ public class DifficultySelector : MonoBehaviour
         PlayerPrefs.SetInt("LevelDifficulty", levelData.Pares);
     }
 
+    private void AdicionarAcessoFase(int idFase)
+    {
+        string chave = "AcessosFase" + idFase;
+        int quantAcessos = PlayerPrefs.GetInt(chave, 0);
+        quantAcessos++;
+        PlayerPrefs.SetInt(chave, quantAcessos);
+        PlayerPrefs.Save();
+    }
+
     public void LoadingDeCena(string nome_cena)
     {
         SceneManager.LoadScene(nome_cena);
-
-        if (AudioPlayer.instanciaAudioPlayer != null)
-        {
-            AudioPlayer.instanciaAudioPlayer.TocarSegundaMusica();            
-        }
     }
 }
