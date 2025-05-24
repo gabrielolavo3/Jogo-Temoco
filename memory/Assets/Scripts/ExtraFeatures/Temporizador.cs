@@ -74,4 +74,9 @@ public class Temporizador : MonoBehaviour
 
         return tempo;
     }
+
+    public float TempoEmHoras()
+    {
+        return PegarTempoTotal() / 3600f;
+    }    
 }
