@@ -97,5 +97,12 @@ public class EstrelasPorPontuacao : MonoBehaviour
             PlayerPrefs.SetInt(chave, qtdEstrelas);
             PlayerPrefs.Save();
         }
+
+        MissaoEstrelas missaoEstrelas = FindAnyObjectByType<MissaoEstrelas>();
+
+        if (missaoEstrelas != null)
+        {
+            missaoEstrelas.AtualizarEstadoMissao();
+        }
     }
 }

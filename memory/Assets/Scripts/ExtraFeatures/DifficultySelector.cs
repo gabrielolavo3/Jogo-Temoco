@@ -93,6 +93,13 @@ public class DifficultySelector : MonoBehaviour
         quantAcessos++;
         PlayerPrefs.SetInt(chave, quantAcessos);
         PlayerPrefs.Save();
+
+        // Atualiza o estado da missão
+        MissaoTanuki missao = FindObjectOfType<MissaoTanuki>();
+        if (missao != null)
+        {
+            missao.AtualizarEstadoMissao();
+        }
     }
 
     public void LoadingDeCena(string nome_cena)

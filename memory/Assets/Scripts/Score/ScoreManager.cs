@@ -75,6 +75,29 @@ public class ScoreManager : MonoBehaviour
         }
 
         PlayerPrefs.Save();
+        PontuacaoGeral();
+        
+        MissaoPequenasVitorias missao = FindObjectOfType<MissaoPequenasVitorias>();
+        if (missao != null)
+        {
+            missao.AtualizarEstadoMissao();
+        }
+
+        MissaoJogoPerfeito missaoPerfeita = FindAnyObjectByType<MissaoJogoPerfeito>();
+        if (missaoPerfeita != null)
+        {
+            missaoPerfeita.AtualizarEstadoMissao();
+        }
+
+    }
+
+    private void PontuacaoGeral()
+    {
+        int pontuacaoAcumulada = PlayerPrefs.GetInt("PontuacaoAcumuladaGeral", 0);
+        pontuacaoAcumulada += pontuacaoTotalJogo;
+        PlayerPrefs.SetInt("PontuacaoAcumuladaGeral", pontuacaoAcumulada);
+
+        PlayerPrefs.Save();
     }
 
     public void ReconfigurarPlacares()
