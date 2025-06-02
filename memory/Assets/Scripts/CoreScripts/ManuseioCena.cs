@@ -26,6 +26,12 @@ public class ManuseioCena : MonoBehaviour
             ExibirHistoria();
             PlayerPrefs.SetInt("JaVisualizouHistoria", 1);
             PlayerPrefs.Save();
+
+            MissaoVisualizarHistoria missaoHistoria = FindObjectOfType<MissaoVisualizarHistoria>();
+            if (missaoHistoria != null)
+            {
+                missaoHistoria.AtualizarEstadoMissao();
+            }
         }
         else
         {
