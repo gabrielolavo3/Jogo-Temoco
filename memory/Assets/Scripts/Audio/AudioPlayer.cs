@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class AudioPlayer : MonoBehaviour
 {
     public AudioClip musicaDaCena1_2;
-    public AudioClip musicaDaCena3;
+    //public AudioClip musicaDaCena3;
     public AudioSource audioSource;
     public static AudioPlayer instanciaAudioPlayer;
 
@@ -68,7 +68,7 @@ public class AudioPlayer : MonoBehaviour
 
     public void AlterarMusica()
     {
-        TrocarMusica(musicaDaCena3);
+        //TrocarMusica(musicaDaCena3);
     }
 
     private void TrocarMusica(AudioClip novaMusica)

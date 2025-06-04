@@ -17,6 +17,7 @@ public class EstrelasPorPontuacao : MonoBehaviour
     public PontuacaoConfigFase[] avaliacoesFases;
 
     private int idFase;
+    private int qtdEstrelas;
     private PontuacaoConfigFase dadosPorFase;
 
     // Start is called before the first frame update
@@ -27,7 +28,8 @@ public class EstrelasPorPontuacao : MonoBehaviour
 
         if (dadosPorFase != null) 
         {
-            ExibirEstrelasPorPontos();
+            ExibirEstrelasPorPontos();            
+            EstrelasContabilizadas();
         }
         else
         {
@@ -51,7 +53,7 @@ public class EstrelasPorPontuacao : MonoBehaviour
     public void ExibirEstrelasPorPontos()
     {
         int pontuacaoFinal = PlayerPrefs.GetInt("UltimaPontuacaoTotal", 0);
-        int qtdEstrelas = 0;
+        qtdEstrelas = 0;
 
         if (pontuacaoFinal >= dadosPorFase.pontosMaximos)
         {
@@ -92,11 +94,12 @@ public class EstrelasPorPontuacao : MonoBehaviour
         // Salvar estrelas conquistadas
         string chave = "EstrelasFase" + idFase;
         int estrelasSalvas = PlayerPrefs.GetInt(chave, 0);
+
         if (qtdEstrelas > estrelasSalvas)
         {
             PlayerPrefs.SetInt(chave, qtdEstrelas);
             PlayerPrefs.Save();
-        }
+        }       
 
         MissaoEstrelas missaoEstrelas = FindAnyObjectByType<MissaoEstrelas>();
 
@@ -104,5 +107,16 @@ public class EstrelasPorPontuacao : MonoBehaviour
         {
             missaoEstrelas.AtualizarEstadoMissao();
         }
+    }
+
+    private void EstrelasContabilizadas()
+    {
+        int estrelasAcumulada = PlayerPrefs.GetInt("EstrelasAcumuladasGeral", 0);
+        estrelasAcumulada += qtdEstrelas;
+        PlayerPrefs.SetInt("EstrelasAcumuladasGeral", estrelasAcumulada);
+
+        PlayerPrefs.Save();
+
+        Debug.Log("Estelas acumuladas: " + estrelasAcumulada);
     }
 }

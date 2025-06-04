@@ -205,22 +205,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 6365754226878108037, guid: 923d1ac5cec8168439078e4a2ad26ee4, type: 3}
-  - {fileID: 7978127296195443997, guid: 806198ea3dcfadb409a63e8aa2aa7eec, type: 3}
-  - {fileID: 8454942706881090931, guid: b0ee056859fa2cc4f99d3a9fcac413df, type: 3}
-  - {fileID: 2651303347865793946, guid: 3dc68b9c77d01c44797debe6b2e79f97, type: 3}
-  - {fileID: 7064389036581613890, guid: 74256a3f40ba0da4fb2b24a18de200e6, type: 3}
-  - {fileID: 2462453332303480835, guid: 334946a8f081e7d48b636d97adc621e4, type: 3}
-  - {fileID: 3928795545850939188, guid: 51447752c8b90014596e7231bb0ada9d, type: 3}
-  - {fileID: 8248716760763727016, guid: 7edb25ab82f966648b2c48301929bda3, type: 3}
-  - {fileID: 6477167840637430250, guid: bfae7d3a6d0b17742a4f617d31fae9e5, type: 3}
-  - {fileID: 4587684214709590025, guid: 8d3b81300b517f840a743a54f1b6d423, type: 3}
+  - {fileID: 6280842079408301638, guid: f107115ee17b99c49b9f55bb34954e56, type: 3}
+  - {fileID: 5087234826287036981, guid: 9d648650acd57d94f84923812af46347, type: 3}
+  - {fileID: 1270967332499585872, guid: fd8211faf7928214cb0e69e288bdc25b, type: 3}
+  - {fileID: 3477308234808292254, guid: 468ca8e510da5744ebc2039a5f76a6b4, type: 3}
+  - {fileID: 6031396178858762173, guid: b6524005a393f044ea8e6bf3bb0ff551, type: 3}
+  - {fileID: 1535758268193966875, guid: b89bc1f3f1f952947b0c4d4e551480d4, type: 3}
+  - {fileID: 3407114451502225670, guid: 9951a64983807e54d8f360e263770161, type: 3}
+  - {fileID: 1217684282285668455, guid: 29a22931334e0ce41865ccac36e76783, type: 3}
+  - {fileID: 7304735988570538696, guid: 7bdb3740e3f59e34784abd70c499d77c, type: 3}
+  - {fileID: 6868920503408962052, guid: 27a1b6d8371be88458939b4b79d01302, type: 3}
+  - {fileID: 8067385190289820719, guid: ddb11c11e3f6caf44b320b5df5efad7a, type: 3}
   tamanhoDoCartao: 2
   conteudoDoCartao: -1
   cartaClicada:
     m_PersistentCalls:
       m_Calls: []
-  clipRevelarCartao: {fileID: 8300000, guid: 97166d6d8ed9b0e4f9282bfba21ae340, type: 3}
+  clipRevelarCartao: {fileID: 8300000, guid: d8f28b7c7ae46344da75a8c13b24150b, type: 3}
 --- !u!222 &2122601465220034810
 CanvasRenderer:
   m_ObjectHideFlags: 0

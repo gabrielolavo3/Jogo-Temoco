@@ -15,6 +15,8 @@ public class RankingScore : MonoBehaviour
     {
         Placares();
         ImprimirProgresso();
+        int pontuacaoAcumulada = PlayerPrefs.GetInt("PontuacaoAcumuladaGeral", 0);
+        Debug.Log(pontuacaoAcumulada);
     }
 
     private void Placares()

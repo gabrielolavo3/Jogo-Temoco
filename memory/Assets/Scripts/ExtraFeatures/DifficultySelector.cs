@@ -28,7 +28,7 @@ public class DifficultySelector : MonoBehaviour
 
     public void ModoFacilSelecionado(string cena)
     {
-        AudioPlayer.instanciaAudioPlayer.AlterarMusica();
+        //AudioPlayer.instanciaAudioPlayer.AlterarMusica();
         Debug.Log("Fase1");
         AdicionarAcessoFase(1);
         ReconfigurarDificuldade(faseUm);
@@ -45,7 +45,7 @@ public class DifficultySelector : MonoBehaviour
 
         if (faseDesbloqueada >= 2 && pontuacaoFase1 >= 300)
         {
-            AudioPlayer.instanciaAudioPlayer.AlterarMusica();
+            //AudioPlayer.instanciaAudioPlayer.AlterarMusica();
             AdicionarAcessoFase(2);
             ReconfigurarDificuldade(faseDois);
             PlayerPrefs.SetInt("FaseAtual", 2);
@@ -66,7 +66,7 @@ public class DifficultySelector : MonoBehaviour
 
         if (faseDesbloqueada >= 3 && pontuacaoFase2 >= 500)
         {
-            AudioPlayer.instanciaAudioPlayer.AlterarMusica();
+            //AudioPlayer.instanciaAudioPlayer.AlterarMusica();
             AdicionarAcessoFase(3);
             ReconfigurarDificuldade(faseTres);
             PlayerPrefs.SetInt("FaseAtual", 3);
