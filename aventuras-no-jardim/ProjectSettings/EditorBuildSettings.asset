@@ -5,15 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/TelaFases.unity
     guid: 1ab9d05b10fbf6b4c882bf56987af541
   - enabled: 1
     path: Assets/Scenes/Fase1.unity
-    guid: 3fc8acdd13e6c734bafef6554d6fdbcd
+    guid: b75797daee7a1b94496145102d206b37
   - enabled: 1
     path: Assets/Scenes/Fase2.unity
     guid: ad970059cb4fb0a4582390111a47b728
@@ -23,4 +20,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TelaConclusao.unity
     guid: a5b1e0d0679525f438eeeaa32f4f973e
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 37de9bde50805b2499938f7fb4340e0e, type: 2}

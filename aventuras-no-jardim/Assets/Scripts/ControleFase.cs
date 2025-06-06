@@ -16,14 +16,17 @@ public class ControleFase : MonoBehaviour
 
     void CarregarFase(string nomeCena)
     {
-        // Antes de carregar a fase, salva o nome para o AutoConclusao
+        // Salva a fase anterior para auto-conclusão
         PlayerPrefs.SetString("FaseAnterior", nomeCena);
         PlayerPrefs.Save();
 
-        // Reseta a pontuação temporária
+        // Marca missão oculta: Acessou a fase
+        MissoesOcultas.AcessouFase(nomeCena);
+
+        // Reseta pontuação temporária
         PontuacaoManager.instancia.ResetarPontuacao();
 
-        // Carrega a cena da fase
+        // Carrega a cena
         SceneManager.LoadScene(nomeCena);
 
         Debug.Log($"[ControleFase] Fase carregada: {nomeCena}");

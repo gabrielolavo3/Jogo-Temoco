@@ -24,7 +24,6 @@ public class PontuacaoManager : MonoBehaviour
 
         _instance = this;
         DontDestroyOnLoad(gameObject);
-        CarregarProgresso();
     }
 
     public void AdicionarPontos(int valor)
@@ -48,13 +47,6 @@ public class PontuacaoManager : MonoBehaviour
         Debug.Log("[Pontuacao] Pontuação resetada");
     }
 
-    private void CarregarProgresso()
-    {
-        _pontos = PlayerPrefs.GetInt("PontuacaoTemp", 0);
-        _pontosTemporarios = _pontos;
-        Debug.Log($"[Pontuacao] Progresso carregado: {_pontos} pts");
-    }
-
     public void ConfirmarPontuacao()
     {
         PlayerPrefs.SetInt("PontuacaoTemp", _pontos);
@@ -70,9 +62,32 @@ public class PontuacaoManager : MonoBehaviour
 
     public int pontuacaoAtual => _pontos;
 
+    /// <summary>
+    /// Atualiza a pontuação acumulada geral, somando os pontos atuais.
+    /// </summary>
+    public void AtualizarPontuacaoAcumulada()
+    {
+        int acumulado = PlayerPrefs.GetInt("PontuacaoAcumuladaGeral", 0);
+        acumulado += _pontos;  // Soma a pontuação atual
+        PlayerPrefs.SetInt("PontuacaoAcumuladaGeral", acumulado);
+        PlayerPrefs.Save();
+        Debug.Log($"[Pontuacao] Pontuação acumulada atualizada: {acumulado}");
+    }
+
+    /// <summary>
+    /// Reseta a pontuação acumulada geral (opcional).
+    /// </summary>
+    public void ResetarPontuacaoAcumulada()
+    {
+        PlayerPrefs.SetInt("PontuacaoAcumuladaGeral", 0);
+        PlayerPrefs.Save();
+        Debug.Log("[Pontuacao] Pontuação acumulada geral resetada");
+    }
+
     [ContextMenu("Debug Pontuação")]
     private void DebugPontuacao()
     {
-        Debug.Log($"Pontos Atuais: {_pontos} | Temporários: {_pontosTemporarios} | Salvos: {PlayerPrefs.GetInt("PontuacaoTemp")}");
+        int acumulado = PlayerPrefs.GetInt("PontuacaoAcumuladaGeral", 0);
+        Debug.Log($"Pontos Atuais: {_pontos} | Temporários: {_pontosTemporarios} | Salvos: {PlayerPrefs.GetInt("PontuacaoTemp")} | Acumulado: {acumulado}");
     }
 }

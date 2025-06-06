@@ -20,12 +20,12 @@ public class CaixaDeDialogos : MonoBehaviour
     private int fraseAtual = 0;
     private string[] vetorFrases = new string[]
     {
-        "Oi! Eu sou Dona Maria, sou sua vizinha, quer um biscoito meu filho?",
-        "Bom Menino, meu filho vc poderia me ajudar em uma coisa?... é que... ah, estou muito triste...",
-        "Minha gatinha branca sumiu hj de manhã! Ela é so um filhote e se perde o tempo td nesse quintal!",
-        "Eu fico preocupada, tenho medo dela se machucar...",
+        "Oi! Eu sou Ruri, sou sua vizinha, tenho 19 anos e to na Faculdade?",
+        "Você é muito fofo(a),vc poderia me ajudar em uma coisa fofo(a)?... é que... ah, eu to com vergonha...",
+        "Eu perdi minha pelucia da Gata Branca pelo Jardim! É o presente pra minha sobrinha!",
+        "Eu quero dar algo especial pra ela, é algo muito importante pra mim...",
         "Mas sozinho eu não vou conseguir...",
-        "Você pode me ajudar a encontrar ela?"
+        "Você pode me ajudar a encontrar a pelucia?"
     };
 
     void Awake()

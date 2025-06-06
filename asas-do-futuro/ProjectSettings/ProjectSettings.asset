@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 26
-  productGUID: 230dbb0825bda1f47ab9f9d7ad47adef
+  productGUID: 37078c3dad0da334b8474b8adb8e9d90
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -47,7 +47,7 @@ PlayerSettings:
   defaultScreenWidthWeb: 1920
   defaultScreenHeightWeb: 1080
   m_StereoRenderingPath: 0
-  m_ActiveColorSpace: 1
+  m_ActiveColorSpace: 0
   unsupportedMSAAFallback: 0
   m_SpriteBatchVertexThreshold: 300
   m_MTRendering: 1
@@ -799,10 +799,10 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 5ee481e7-9c05-4583-b235-1050ecbf453d
+  cloudProjectId: 9a7f64b3-7960-455d-a0f9-be55ae02c463
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: asas-do-futuro
+  projectName: asas-do-futuro 2025-06-06_14-23-52
   organizationId: gabrielsantosolavo101
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
